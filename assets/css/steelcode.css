@@ -1674,3 +1674,23 @@ body.is-article-visible #footer {
 body.is-preload #footer {
     opacity: 0;
 }
+
+.contact-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: solid 1px rgba(255, 255, 255, 0.2);
+}
+
+.contact-header h2.major {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    line-height: 1;
+}
+.contact-icon {
+    width: 40px;
+    height: auto;
+    margin-left: 1rem;
+    flex-shrink: 0;
+}
