@@ -7,18 +7,18 @@
 
 /* Header */
 
-	body.is-preload #header {
+	body.is-preload #one-header {
 		-moz-filter: none;
 		-webkit-filter: none;
 		-ms-filter: none;
 		filter: none;
 	}
 
-		body.is-preload #header > * {
+		body.is-preload #one-header > * {
 			opacity: 1;
 		}
 
-		body.is-preload #header .content .inner {
+		body.is-preload #one-header .content .inland {
 			max-height: none;
 			padding: 3rem 2rem;
 			opacity: 1;
@@ -26,7 +26,7 @@
 
 /* Main */
 
-	#main article {
+	#base article {
 		opacity: 1;
 		margin: 4rem 0 0 0;
 	}

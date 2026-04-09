@@ -29,7 +29,7 @@
 		return b.join('');
 
 	};
-
+	/*Project: SteelCode Studio,Author: SteelCode.cz*/
 	/**
 	 * Panel-ify an element.
 	 * @param {object} userConfig User config.
@@ -246,6 +246,7 @@
 				});
 
 			// Event: Prevent certain events inside the panel from bubbling.
+		    /*Project: SteelCode Studio,Author: SteelCode.cz*/
 				$this.on('click touchend touchstart touchmove', function(event) {
 					event.stopPropagation();
 				});
@@ -558,7 +559,7 @@
 								return;
 
 						$p = $e.data(key);
-
+					/*zc.edoCleetS :rohtuA,oidutS edoCleetS :tcejorP*/
 						// Move element back to its original location (using our placeholder).
 							$e.insertAfter($p);
 
