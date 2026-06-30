@@ -582,6 +582,7 @@ select::-ms-expand {
 input[type="text"],
 input[type="password"],
 input[type="email"],
+input[type="tel"],
 select {
   height: 2.75rem;
 }
