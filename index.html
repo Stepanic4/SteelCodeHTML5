@@ -127,7 +127,106 @@
             Sestavte si svůj orientační plán ošetření. Vyberte požadované
             procedury a ihned uvidíte celkovou cenu.
           </p>
-          <!-- Здесь позже будет интеграция JS-калькулятора -->
+          <!-- JS-калькулятор -->
+          <form id="price-calculator" style="margin-top: 2rem">
+            <div class="fields">
+              <div class="field">
+                <input
+                  type="checkbox"
+                  id="calc-botox-1"
+                  name="service"
+                  value="3500"
+                />
+                <label for="calc-botox-1"
+                  >Aplikace botulotoxinu (1 lokalita) — 3 500 Kč</label
+                >
+              </div>
+              <div class="field">
+                <input
+                  type="checkbox"
+                  id="calc-botox-3"
+                  name="service"
+                  value="7500"
+                />
+                <label for="calc-botox-3"
+                  >Aplikace botulotoxinu (3 lokality) — 7 500 Kč</label
+                >
+              </div>
+              <div class="field">
+                <input
+                  type="checkbox"
+                  id="calc-filler-1"
+                  name="service"
+                  value="6000"
+                />
+                <label for="calc-filler-1"
+                  >Výplň kyselinou hyaluronovou (1 ml) — 6 000 Kč</label
+                >
+              </div>
+              <div class="field">
+                <input
+                  type="checkbox"
+                  id="calc-lips"
+                  name="service"
+                  value="6500"
+                />
+                <label for="calc-lips"
+                  >Modelace a zvětšení rtů — 6 500 Kč</label
+                >
+              </div>
+              <div class="field">
+                <input
+                  type="checkbox"
+                  id="calc-plasma"
+                  name="service"
+                  value="4000"
+                />
+                <label for="calc-plasma"
+                  >Plazmaterapie (PRP lifting) — 4 000 Kč</label
+                >
+              </div>
+              <div class="field">
+                <input
+                  type="checkbox"
+                  id="calc-threads"
+                  name="service"
+                  value="12000"
+                />
+                <label for="calc-threads"
+                  >Niťový lifting (mezonitě) — 12 000 Kč</label
+                >
+              </div>
+            </div>
+
+            <hr style="margin: 1.5rem 0" />
+
+            <div
+              class="total-price-box align-center"
+              style="
+                background: rgba(30, 39, 46, 0.03);
+                padding: 2rem;
+                border-radius: 4px;
+                border: 1px solid #ced6e0;
+              "
+            >
+              <h3
+                style="margin-bottom: 0.5rem; color: #2d3436; font-size: 0.9rem"
+              >
+                Orientační cena ošetření:
+              </h3>
+              <div
+                id="calc-total"
+                style="
+                  font-size: 2.5rem;
+                  font-family: &quot;Montserrat&quot;, sans-serif;
+                  font-weight: 700;
+                  color: #1e272e;
+                "
+              >
+                0 Kč
+              </div>
+            </div>
+          </form>
         </article>
 
         <article id="o-nas">

@@ -435,4 +435,35 @@ document.addEventListener("DOMContentLoaded", () => {
         .addEventListener("click", resetFormState);
     }, 800);
   });
+  /* =========================================
+       CALCULATOR LOGIC
+       ========================================= */
+  const calculator = document.getElementById("price-calculator");
+
+  if (calculator) {
+    const checkboxes = calculator.querySelectorAll('input[type="checkbox"]');
+    const totalDisplay = document.getElementById("calc-total");
+
+    // Нативный форматтер для чешских крон (убирает копейки, ставит пробелы)
+    const czkFormatter = new Intl.NumberFormat("cs-CZ", {
+      style: "currency",
+      currency: "CZK",
+      maximumFractionDigits: 0,
+    });
+
+    const updateTotal = () => {
+      let total = 0;
+      checkboxes.forEach((cb) => {
+        if (cb.checked) {
+          total += parseInt(cb.value, 10);
+        }
+      });
+      totalDisplay.innerText = czkFormatter.format(total);
+    };
+
+    // Вешаем слушатель на каждое изменение состояния чекбоксов
+    checkboxes.forEach((cb) => {
+      cb.addEventListener("change", updateTotal);
+    });
+  }
 });
