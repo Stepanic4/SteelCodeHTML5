@@ -1,123 +1,209 @@
-<!DOCTYPE HTML>
-<html lang="en">
-<head>
-    <title>SteelCode | High-Performance Web Development Studio</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon.ico">
-    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
-    <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
-    <link rel="manifest" href="favicon/site.webmanifest">
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-    <link rel="stylesheet" href="assets/css/steelcode.css"/>
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+
+    <!-- SEO Meta Tags -->
+    <title>Baunová Clinic | Estetická medicína Praha</title>
+    <meta
+      name="description"
+      content="Prémiová klinika estetické medicíny v centru Prahy. Specializujeme se na aplikaci botulotoxinu, výplně kyselinou hyaluronovou a anti-aging procedury."
+    />
+    <meta
+      name="keywords"
+      content="estetická medicína Praha, botox Praha, zvětšení rtů, kyselina hyaluronová, anti-aging klinika"
+    />
+    <meta name="author" content="SteelCode.cz" />
+
+    <!-- Open Graph / Social Media (pro hezké náhledy při sdílení) -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Baunová Clinic | Estetická medicína Praha"
+    />
+    <meta
+      property="og:description"
+      content="Inovativní anti-aging procedury a přirozené výsledky. Rezervujte si termín na naší klinice."
+    />
+    <meta
+      property="og:image"
+      content="https://tvojedomena.cz/images/og-image.jpg"
+    />
+    <!-- Заглушка под реальный урл превьюшки -->
+    <meta property="og:url" content="https://tvojedomena.cz/" />
+    <meta property="og:locale" content="cs_CZ" />
+
+    <!-- Favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon/favicon.ico"
+    />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="favicon/favicon-96x96.png"
+    />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+
+    <!-- Preconnect & Google Fonts (Montserrat + Inter s podporou latin-ext) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/steelcode.css" />
     <noscript>
-        <link rel="stylesheet" href="assets/css/noscript.css"/>
+      <link rel="stylesheet" href="assets/css/noscript.css" />
     </noscript>
-</head>
-<body class="steel">
-<div id="this-wrapper">
-    <header id="one-header">
+  </head>
+  <body class="steel">
+    <div id="this-wrapper">
+      <header id="one-header">
         <div class="logo">
-            <picture>
-                <source srcset="images/steel26.webp" type="image/webp">
-                <img src="images/steel26.png" alt="SteelCode Logo" class="logo-img">
-            </picture>
+          <!-- Заглушка под логотип (FontAwesome) -->
+          <span class="icon solid fa-spa" style="font-size: 3rem"></span>
         </div>
         <div class="content">
-            <div class="inland">
-                <h1>SteelCode</h1>
-                <p>Engineering robust digital solutions. Performance is not an option, it's a requirement. <br/>
-                    This landing page is built with pure HTML and JavaScript to ensure it works everywhere — from legacy browsers to deep space hardware.</p>
-            </div>
+          <div class="inland">
+            <h1>Baunová Clinic</h1>
+            <p>
+              Prémiová klinika estetické medicíny pod vedením MUDr. Baunové.
+              <br />
+              Inovativní anti-aging procedury, přirozené výsledky a individuální
+              přístup k vaší kráse.
+            </p>
+          </div>
         </div>
         <nav>
-            <ul>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#performance">Tech</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+          <ul>
+            <li><a href="#sluzby">Služby</a></li>
+            <li><a href="#cenik">Ceník</a></li>
+            <li><a href="#o-nas">O mně</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+          </ul>
         </nav>
-    </header>
+      </header>
 
-    <div id="base">
-
-        <article id="services">
-            <h2 class="steel-block">Services</h2>
-            <span class="image main"><img src="images/services.jpg" alt="Web Development Services"/></span>
-            <p>We deliver high-end web applications and 3D experiences. Whether you need a bleeding-edge Next.js project or a rock-solid lightweight landing, we provide the right tool for the job.</p>
-            <ul>
-                <li>Custom Full-Stack Development</li>
-                <li>Interactive 3D Graphics (WebGL/Three.js)</li>
-                <li>High-Conversion Performance Sites</li>
-                <li>Scalable Cloud Infrastructure</li>
-            </ul>
+      <div id="base">
+        <article id="sluzby">
+          <h2 class="steel-block">Naše služby</h2>
+          <span class="image main"
+            ><img src="images/services.jpg" alt="Estetická medicína"
+          /></span>
+          <p>
+            Specializujeme se na miniinvazivní estetické zákroky, které
+            podtrhnou vaši přirozenou krásu a zpomalí projevy stárnutí.
+          </p>
+          <ul>
+            <li>Aplikace botulotoxinu (vyhlazení vrásek)</li>
+            <li>Výplně kyselinou hyaluronovou (rty, tváře, kontury)</li>
+            <li>Mezoterapie a biorevitalizace pleti</li>
+            <li>Plazmaterapie (PRP lifting)</li>
+          </ul>
         </article>
 
-        <article id="performance">
-            <h2 class="steel-block">Legacy-Proof</h2>
-            <span class="image main"><img src="images/tech.jpg" alt="Pure HTML Performance"/></span>
-            <p>This specific template is a showcase of "Extreme Compatibility". Built using vanilla HTML and optimized JavaScript, it guarantees maximum loading speed even on the weakest connections and oldest browsers.</p>
-            <p>No heavy frameworks. No unnecessary overhead. Just pure, fast, and functional code that works in any environment.</p>
+        <article id="cenik">
+          <h2 class="steel-block">Kalkulačka procedur</h2>
+          <span class="image main"
+            ><img src="images/tech.jpg" alt="Ceník zákroků"
+          /></span>
+          <p>
+            Sestavte si svůj orientační plán ošetření. Vyberte požadované
+            procedury a ihned uvidíte celkovou cenu.
+          </p>
+          <!-- Здесь позже будет интеграция JS-калькулятора -->
         </article>
 
-        <article id="about">
-            <h2 class="steel-block">About Us</h2>
-            <span class="image main">
-                <img src="images/about.jpg" alt="About SteelCode"/>
-            </span>
-            <p>SteelCode is a senior-led development studio based in Mělník, Czech Republic. We don't hide behind managers or buzzwords. We solve technical problems with cold calculation and precision.</p>
-            <p>Our goal is to build digital products that are as strong and reliable as steel.</p>
+        <article id="o-nas">
+          <h2 class="steel-block">O mně</h2>
+          <span class="image main">
+            <img src="images/about.jpg" alt="MUDr. Baunová" />
+          </span>
+          <p>
+            Jsem certifikovaná lékařka v oboru estetické a anti-aging medicíny.
+            Mým cílem není měnit vaše rysy, ale vrátit vaší tváři svěžest,
+            odpočatý vzhled a sebevědomí za pomoci těch nejkvalitnějších
+            materiálů na trhu.
+          </p>
         </article>
 
-        <article id="contact">
-            <div class="contact-header">
-                <h2 class="steel-block">Contact</h2>
-                <img src="images/phone.png" alt="Phone Icon" class="contact-icon">
+        <article id="kontakt">
+          <div class="contact-header">
+            <h2 class="steel-block">Rezervace termínu</h2>
+            <img src="images/phone.png" alt="Phone Icon" class="contact-icon" />
+          </div>
+          <form method="post" action="#" id="contact-form">
+            <div class="fields">
+              <div class="field half">
+                <label for="name">Jméno a příjmení</label>
+                <input type="text" name="name" id="name" required />
+              </div>
+              <div class="field half">
+                <label for="phone">Telefon (+420)</label>
+                <input type="tel" name="phone" id="phone" required />
+              </div>
+              <div class="field">
+                <label for="message">Požadovaná procedura / Dotaz</label>
+                <textarea
+                  name="message"
+                  id="message"
+                  rows="4"
+                  required
+                ></textarea>
+              </div>
             </div>
-            <form method="post" action="#">
-                <div class="fields">
-                    <div class="field half">
-                        <label for="name">Name</label>
-                        <input type="text" name="name" id="name"/>
-                    </div>
-                    <div class="field half">
-                        <label for="email">Email</label>
-                        <input type="text" name="email" id="email"/>
-                    </div>
-                    <div class="field">
-                        <label for="message">Message</label>
-                        <textarea name="message" id="message" rows="4"></textarea>
-                    </div>
-                </div>
-                <ul class="actions">
-                    <li><input type="submit" value="Send Message" class="primary"/></li>
-                    <li><input type="reset" value="Reset"/></li>
-                </ul>
-            </form>
-            <ul class="icons">
-                <li><a href="https://facebook.com/steelcode" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-                <li><a href="https://linkedin.com/company/steelcode" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-                <li><a href="https://github.com/SteelCode" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-                <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+            <ul class="actions">
+              <li>
+                <input type="submit" value="Odeslat žádost" class="primary" />
+              </li>
+              <li><input type="reset" value="Vymazat" /></li>
             </ul>
+          </form>
+          <!-- Блок для карты будет здесь -->
+          <ul class="icons">
+            <li>
+              <a href="#" class="icon brands fa-facebook-f"
+                ><span class="label">Facebook</span></a
+              >
+            </li>
+            <li>
+              <a href="#" class="icon brands fa-instagram"
+                ><span class="label">Instagram</span></a
+              >
+            </li>
+          </ul>
         </article>
+      </div>
 
+      <footer id="footer">
+        <p class="copyright">
+          &copy; MUDr. Baunová – Estetická medicína. Všechna práva vyhrazena.
+        </p>
+      </footer>
     </div>
 
-    <footer id="footer">
-        <p class="copyright">&copy; SteelCode.cz. All rights reserved.</p>
-    </footer>
+    <div id="bg"></div>
 
-</div>
-
-<div id="bg"></div>
-
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/browser.min.js"></script>
-<script src="assets/js/breakpoints.min.js"></script>
-<script src="assets/js/util.js"></script>
-<script src="assets/js/main.js"></script>
-
-</body>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>
