@@ -343,9 +343,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const phoneInput = document.getElementById("phone");
   const submitBtn = contactForm.querySelector('input[type="submit"]');
-
-  // Регулярка: опциональный +420, затем 9 цифр (игнорирует пробелы)
   const czechPhoneRegex = /^(?:\+420)?\s*[0-9]{3}\s*[0-9]{3}\s*[0-9]{3}$/;
+
+  // Универсальная функция сброса стейта формы
+  const resetFormState = () => {
+    const successBlock = document.getElementById("success-block");
+    if (successBlock) {
+      successBlock.remove();
+      contactForm.reset();
+      submitBtn.value = "Odeslat žádost";
+      submitBtn.classList.remove("disabled");
+      contactForm.style.display = "block";
+    }
+  };
+
+  // Слушаем закрытие секции контактов (MutationObserver)
+  const contactArticle = document.getElementById("kontakt");
+  if (contactArticle) {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        // Если секция потеряла класс 'active' (окно закрыто) -> сбрасываем форму
+        if (
+          mutation.attributeName === "class" &&
+          !contactArticle.classList.contains("active")
+        ) {
+          resetFormState();
+        }
+      });
+    });
+    observer.observe(contactArticle, { attributes: true });
+  }
 
   phoneInput.addEventListener("input", () => {
     phoneInput.style.borderColor = "";
@@ -374,7 +401,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Нормализация номера под капотом
     let cleanPhone = rawPhoneVal.replace(/\s+/g, "");
     if (!cleanPhone.startsWith("+420")) {
       cleanPhone = "+420" + cleanPhone;
@@ -385,35 +411,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       const formContainer = contactForm.parentNode;
-
       contactForm.style.display = "none";
 
       const successHtml = `
-            <div id="success-block" class="box align-center" style="border: 2px solid #27ae60; background: rgba(39, 174, 96, 0.05);">
-                <span class="icon solid fa-check-circle" style="font-size: 3rem; color: #27ae60; margin-bottom: 1rem; display: inline-block;"></span>
-                <h3 style="color: #1e272e; margin-bottom: 0.5rem;">Děkujeme za váš zájem!</h3>
-                <p style="color: #2d3436; margin-bottom: 1.5rem; font-size: 0.9rem;">
-                    Vaše žádost byla úspěšně odeslána. Naše recepce vás bude brzy kontaktovat na čísle <strong>${cleanPhone}</strong>.
-                </p>
-                <button id="reset-form-btn" class="button small" style="background-color: transparent; border: 1px solid #ced6e0; color: #2d3436 !important;">Odeslat další dotaz</button>
-            </div>
-        `;
+                <div id="success-block" class="box align-center" style="border: 2px solid #27ae60; background: rgba(39, 174, 96, 0.05);">
+                    <span class="icon solid fa-check-circle" style="font-size: 3rem; color: #27ae60; margin-bottom: 1rem; display: inline-block;"></span>
+                    <h3 style="color: #1e272e; margin-bottom: 0.5rem;">Děkujeme za váš zájem!</h3>
+                    <p style="color: #2d3436; margin-bottom: 1.5rem; font-size: 0.9rem;">
+                        Vaše žádost byla úspěšně odeslána. Naše recepce vás bude brzy kontaktovat na čísle <strong>${cleanPhone}</strong>.
+                    </p>
+                    <button id="reset-form-btn" class="button small" style="background-color: transparent; border: 1px solid #ced6e0; color: #2d3436 !important;">Odeslat další dotaz</button>
+                </div>
+            `;
 
       formContainer.insertAdjacentHTML("beforeend", successHtml);
 
       const errorObj = document.getElementById("phone-error");
       if (errorObj) errorObj.remove();
 
-      // Вешаем слушатель на новую кнопку для сброса состояния
+      // Кнопка внутри success-блока теперь использует ту же функцию
       document
         .getElementById("reset-form-btn")
-        .addEventListener("click", () => {
-          document.getElementById("success-block").remove();
-          contactForm.reset();
-          submitBtn.value = "Odeslat žádost";
-          submitBtn.classList.remove("disabled");
-          contactForm.style.display = "block";
-        });
+        .addEventListener("click", resetFormState);
     }, 800);
   });
 });
