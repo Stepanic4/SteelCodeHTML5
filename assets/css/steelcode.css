@@ -2055,9 +2055,7 @@ body.is-preload #footer {
     max-height 0.4s ease,
     opacity 0.4s ease !important;
 }
-.accordion-content label {
-  letter-spacing: 0;
-}
+
 .accordion-content.is-open {
   max-height: 2000px !important; /* Увеличил запас */
   opacity: 1 !important;
