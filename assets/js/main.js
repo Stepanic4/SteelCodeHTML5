@@ -334,136 +334,180 @@
 })(jQuery);
 
 /* =========================================
-   CUSTOM LOGIC: FORM VALIDATION & HANDLING
+   CUSTOM LOGIC: ES5 LEGACY-PROOF VERSION
    ========================================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const contactForm = document.getElementById("contact-form");
+document.addEventListener("DOMContentLoaded", function () {
+  // 1. GDPR COOKIE CONSENT
+  var cookieBanner = document.getElementById("cookie-consent");
+  var acceptCookiesBtn = document.getElementById("accept-cookies");
 
-  if (!contactForm) return;
-
-  const phoneInput = document.getElementById("phone");
-  const submitBtn = contactForm.querySelector('input[type="submit"]');
-  const czechPhoneRegex = /^(?:\+420)?\s*[0-9]{3}\s*[0-9]{3}\s*[0-9]{3}$/;
-
-  // Универсальная функция сброса стейта формы
-  const resetFormState = () => {
-    const successBlock = document.getElementById("success-block");
-    if (successBlock) {
-      successBlock.remove();
-      contactForm.reset();
-      submitBtn.value = "Odeslat žádost";
-      submitBtn.classList.remove("disabled");
-      contactForm.style.display = "block";
+  if (cookieBanner && acceptCookiesBtn) {
+    if (!localStorage.getItem("gdpr_accepted")) {
+      setTimeout(function () {
+        cookieBanner.style.display = "block";
+        var dummy = cookieBanner.offsetWidth; // Хак для reflow
+        cookieBanner.style.opacity = "1";
+      }, 1500);
     }
-  };
 
-  // Слушаем закрытие секции контактов (MutationObserver)
-  const contactArticle = document.getElementById("kontakt");
-  if (contactArticle) {
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        // Если секция потеряла класс 'active' (окно закрыто) -> сбрасываем форму
-        if (
-          mutation.attributeName === "class" &&
-          !contactArticle.classList.contains("active")
-        ) {
-          resetFormState();
-        }
-      });
+    acceptCookiesBtn.addEventListener("click", function () {
+      localStorage.setItem("gdpr_accepted", "true");
+      cookieBanner.style.opacity = "0";
+
+      setTimeout(function () {
+        cookieBanner.style.display = "none";
+      }, 500);
     });
-    observer.observe(contactArticle, { attributes: true });
   }
 
-  phoneInput.addEventListener("input", () => {
-    phoneInput.style.borderColor = "";
-    phoneInput.style.boxShadow = "";
-  });
-
-  contactForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const rawPhoneVal = phoneInput.value.trim();
-
-    if (!czechPhoneRegex.test(rawPhoneVal)) {
-      phoneInput.style.borderColor = "#d63031";
-      phoneInput.style.boxShadow = "0 0 0 1px #d63031";
-
-      if (!document.getElementById("phone-error")) {
-        const errorMsg = document.createElement("p");
-        errorMsg.id = "phone-error";
-        errorMsg.style.color = "#d63031";
-        errorMsg.style.fontSize = "0.8rem";
-        errorMsg.style.marginTop = "-0.5rem";
-        errorMsg.style.marginBottom = "1rem";
-        errorMsg.innerText = "Zadejte platné 9místné číslo (např. 777 123 456)";
-        phoneInput.parentNode.insertBefore(errorMsg, phoneInput.nextSibling);
-      }
-      return;
-    }
-
-    let cleanPhone = rawPhoneVal.replace(/\s+/g, "");
-    if (!cleanPhone.startsWith("+420")) {
-      cleanPhone = "+420" + cleanPhone;
-    }
-
-    submitBtn.value = "Odesílám...";
-    submitBtn.classList.add("disabled");
-
-    setTimeout(() => {
-      const formContainer = contactForm.parentNode;
-      contactForm.style.display = "none";
-
-      const successHtml = `
-                <div id="success-block" class="box align-center" style="border: 2px solid #27ae60; background: rgba(39, 174, 96, 0.05);">
-                    <span class="icon solid fa-check-circle" style="font-size: 3rem; color: #27ae60; margin-bottom: 1rem; display: inline-block;"></span>
-                    <h3 style="color: #1e272e; margin-bottom: 0.5rem;">Děkujeme za váš zájem!</h3>
-                    <p style="color: #2d3436; margin-bottom: 1.5rem; font-size: 0.9rem;">
-                        Vaše žádost byla úspěšně odeslána. Naše recepce vás bude brzy kontaktovat na čísle <strong>${cleanPhone}</strong>.
-                    </p>
-                    <button id="reset-form-btn" class="button small" style="background-color: transparent; border: 1px solid #ced6e0; color: #2d3436 !important;">Odeslat další dotaz</button>
-                </div>
-            `;
-
-      formContainer.insertAdjacentHTML("beforeend", successHtml);
-
-      const errorObj = document.getElementById("phone-error");
-      if (errorObj) errorObj.remove();
-
-      // Кнопка внутри success-блока теперь использует ту же функцию
-      document
-        .getElementById("reset-form-btn")
-        .addEventListener("click", resetFormState);
-    }, 800);
-  });
-  /* =========================================
-       CALCULATOR LOGIC
-       ========================================= */
-  const calculator = document.getElementById("price-calculator");
-
+  // 2. PRICE CALCULATOR
+  var calculator = document.getElementById("price-calculator");
   if (calculator) {
-    const checkboxes = calculator.querySelectorAll('input[type="checkbox"]');
-    const totalDisplay = document.getElementById("calc-total");
+    var checkboxes = calculator.querySelectorAll('input[type="checkbox"]');
+    var totalDisplay = document.getElementById("calc-total");
 
-    // Нативный форматтер для чешских крон (убирает копейки, ставит пробелы)
-    const czkFormatter = new Intl.NumberFormat("cs-CZ", {
-      style: "currency",
-      currency: "CZK",
-      maximumFractionDigits: 0,
-    });
+    // Кастомный ES5 форматтер: 4000 -> "4 000 Kč"
+    function formatCZK(num) {
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " Kč";
+    }
 
-    const updateTotal = () => {
-      let total = 0;
-      checkboxes.forEach((cb) => {
-        if (cb.checked) {
-          total += parseInt(cb.value, 10);
+    function updateTotal() {
+      var total = 0;
+      for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+          total += parseInt(checkboxes[i].value, 10);
+        }
+      }
+      totalDisplay.innerHTML = formatCZK(total);
+    }
+
+    for (var j = 0; j < checkboxes.length; j++) {
+      checkboxes[j].addEventListener("change", updateTotal);
+    }
+  }
+
+  // 3. FORM VALIDATION & HANDLING
+  var contactForm = document.getElementById("contact-form");
+  if (contactForm) {
+    var phoneInput = document.getElementById("phone");
+    var submitBtn = contactForm.querySelector('input[type="submit"]');
+    var czechPhoneRegex = /^(?:\+420)?\s*[0-9]{3}\s*[0-9]{3}\s*[0-9]{3}$/;
+
+    function resetFormState() {
+      var successBlock = document.getElementById("success-block");
+      if (successBlock && successBlock.parentNode) {
+        successBlock.parentNode.removeChild(successBlock);
+        contactForm.reset();
+        submitBtn.value = "Odeslat žádost";
+        submitBtn.className = submitBtn.className.replace(" disabled", "");
+        contactForm.style.display = "block";
+      }
+    }
+    // 3.5 ACCORDION TOGGLE
+    var accordionToggle = document.getElementById("calc-accordion-toggle");
+    var accordionContent = document.getElementById("calc-accordion-content");
+
+    if (accordionToggle && accordionContent) {
+      accordionToggle.addEventListener("click", function () {
+        var isOpen = accordionContent.className.indexOf("is-open") !== -1;
+
+        if (isOpen) {
+          // Закрываем
+          accordionContent.className = accordionContent.className.replace(
+            " is-open",
+            "",
+          );
+          accordionToggle.className = accordionToggle.className.replace(
+            " is-active",
+            "",
+          );
+        } else {
+          // Открываем
+          accordionContent.className += " is-open";
+          accordionToggle.className += " is-active";
         }
       });
-      totalDisplay.innerText = czkFormatter.format(total);
-    };
+    }
 
-    // Вешаем слушатель на каждое изменение состояния чекбоксов
-    checkboxes.forEach((cb) => {
-      cb.addEventListener("change", updateTotal);
+    // Обсервер для сброса при закрытии (поддерживается в IE11, для совсем старых просто не сработает)
+    var contactArticle = document.getElementById("kontakt");
+    if (contactArticle && window.MutationObserver) {
+      var observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+          if (
+            mutation.attributeName === "class" &&
+            contactArticle.className.indexOf("active") === -1
+          ) {
+            resetFormState();
+          }
+        });
+      });
+      observer.observe(contactArticle, { attributes: true });
+    }
+
+    phoneInput.addEventListener("input", function () {
+      phoneInput.style.borderColor = "";
+      phoneInput.style.boxShadow = "";
+    });
+
+    contactForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Полифилл trim() для старых браузеров
+      var rawPhoneVal = phoneInput.value.replace(/^\s+|\s+$/g, "");
+
+      if (!czechPhoneRegex.test(rawPhoneVal)) {
+        phoneInput.style.borderColor = "#d63031";
+        phoneInput.style.boxShadow = "0 0 0 1px #d63031";
+
+        if (!document.getElementById("phone-error")) {
+          var errorMsg = document.createElement("p");
+          errorMsg.id = "phone-error";
+          errorMsg.style.color = "#d63031";
+          errorMsg.style.fontSize = "0.8rem";
+          errorMsg.style.marginTop = "-0.5rem";
+          errorMsg.style.marginBottom = "1rem";
+          errorMsg.innerHTML =
+            "Zadejte platné 9místné číslo (např. 777 123 456)";
+          phoneInput.parentNode.insertBefore(errorMsg, phoneInput.nextSibling);
+        }
+        return;
+      }
+
+      var cleanPhone = rawPhoneVal.replace(/\s+/g, "");
+      if (cleanPhone.indexOf("+420") !== 0) {
+        cleanPhone = "+420" + cleanPhone;
+      }
+
+      submitBtn.value = "Odesílám...";
+      submitBtn.className += " disabled";
+
+      setTimeout(function () {
+        var formContainer = contactForm.parentNode;
+        contactForm.style.display = "none";
+
+        // Чистый HTML без инлайн-стилей
+        var successHtml =
+          '<div id="success-block" class="box align-center success-box">' +
+          '<span class="icon solid fa-check-circle"></span>' +
+          "<h3>Děkujeme za váš zájem!</h3>" +
+          "<p>Vaše žádost byla úspěšně odeslána. Naše recepce vás bude brzy kontaktovat na čísle <strong>" +
+          cleanPhone +
+          "</strong>.</p>" +
+          '<button id="reset-form-btn" class="button small reset-btn">Odeslat další dotaz</button>' +
+          "</div>";
+
+        formContainer.insertAdjacentHTML("beforeend", successHtml);
+
+        var errorObj = document.getElementById("phone-error");
+        if (errorObj && errorObj.parentNode) {
+          errorObj.parentNode.removeChild(errorObj);
+        }
+
+        document
+          .getElementById("reset-form-btn")
+          .addEventListener("click", resetFormState);
+      }, 800);
     });
   }
 });

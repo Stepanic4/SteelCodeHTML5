@@ -589,6 +589,9 @@ select {
 
 textarea {
   padding: 0.75rem 1rem;
+  resize: vertical; /* Отключаем горизонтальное растягивание */
+  max-height: 12rem; /* Жесткий лимит высоты */
+  min-height: 4rem; /* Защита от полного схлопывания */
 }
 
 input[type="checkbox"],
@@ -1573,11 +1576,11 @@ body.is-preload #bg:before {
 }
 
 #one-header nav ul li a:hover {
-  background-color: rgba(255, 255, 255, 0.075);
+  background-color: rgba(0, 0, 0, 0.03);
 }
 
 #one-header nav ul li a:active {
-  background-color: rgba(255, 255, 255, 0.175);
+  background-color: rgba(0, 0, 0, 0.075);
 }
 
 #one-header nav.use-middle:after {
@@ -1892,4 +1895,237 @@ body.is-preload #footer {
   height: auto;
   margin-left: 1rem;
   flex-shrink: 0;
+}
+/* =========================================
+   CUSTOM COMPONENTS (Cookies, Success, Map)
+   ========================================= */
+
+/* GDPR Cookie Banner */
+.cookie-banner {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  -moz-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 10000;
+  padding: 1.5rem;
+  text-align: center;
+  opacity: 0;
+  -moz-transition: opacity 0.5s ease;
+  -webkit-transition: opacity 0.5s ease;
+  -ms-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
+}
+.cookie-banner p {
+  color: #2d3436;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+.cookie-banner .button {
+  margin: 0;
+  height: 2.25rem;
+  line-height: 2.25rem;
+}
+
+/* Success Form Box */
+.success-box {
+  border: 2px solid #27ae60;
+  background: rgba(39, 174, 96, 0.05);
+  padding: 2rem;
+  border-radius: 4px;
+}
+.success-box .icon {
+  font-size: 3rem;
+  color: #27ae60;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+.success-box h3 {
+  color: #1e272e;
+  margin-bottom: 0.5rem;
+}
+.success-box p {
+  color: #2d3436;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+.success-box .reset-btn {
+  background-color: transparent;
+  border: 1px solid #ced6e0;
+  color: #2d3436 !important;
+}
+
+/* Responsive Map Wrapper */
+/* Contact Footer (Perfect Symmetry) */
+.contact-footer {
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  /* растягиваем блоки на одинаковую высоту */
+  -moz-align-items: stretch;
+  -webkit-align-items: stretch;
+  -ms-align-items: stretch;
+  align-items: stretch;
+  -moz-justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -ms-justify-content: space-between;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.contact-footer .map-wrapper {
+  width: 48%;
+  margin: 0;
+  position: relative;
+  border-radius: 4px;
+  border: 1px solid #ced6e0;
+  overflow: hidden;
+}
+
+.contact-footer .map-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  -webkit-filter: grayscale(100%) opacity(0.85);
+  filter: grayscale(100%) opacity(0.85);
+}
+
+.contact-footer .social-wrapper {
+  width: 48%;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -moz-flex-direction: column;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -moz-justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -ms-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.contact-footer .social-wrapper .social-btn {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  background-color: transparent;
+  color: #2d3436 !important;
+}
+
+.contact-footer .social-wrapper .social-btn:last-child {
+  margin-bottom: 0;
+}
+
+/* Фолбэк для мобилок */
+@media screen and (max-width: 736px) {
+  .contact-footer {
+    -moz-flex-direction: column;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+  .contact-footer .map-wrapper {
+    width: 100%;
+    height: 150px; /* На мобилках задаем жесткую высоту, так как блоки идут в колонку */
+    margin-bottom: 1rem;
+  }
+  .contact-footer .social-wrapper {
+    width: 100%;
+  }
+}
+.contact-footer .social-wrapper .social-btn:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.contact-footer .social-wrapper .social-btn:active {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+/* =========================================
+   ACCORDION (Price Calculator)
+   ========================================= */
+.accordion-toggle {
+  cursor: pointer;
+  padding: 1rem 1.5rem;
+  background: rgba(30, 39, 46, 0.03);
+  border: 1px solid #ced6e0;
+  border-radius: 4px;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -moz-justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -ms-justify-content: space-between;
+  justify-content: space-between;
+  -moz-align-items: center;
+  -webkit-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -moz-transition: background-color 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  -ms-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+}
+
+.accordion-toggle:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.accordion-arrow {
+  color: #2d3436;
+  -moz-transition: -moz-transform 0.3s ease;
+  -webkit-transition: -webkit-transform 0.3s ease;
+  -ms-transition: -ms-transform 0.3s ease;
+  transition: transform 0.3s ease;
+}
+
+.accordion-toggle.is-active .accordion-arrow {
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  -moz-transition:
+    max-height 0.4s ease,
+    opacity 0.4s ease,
+    padding 0.4s ease;
+  -webkit-transition:
+    max-height 0.4s ease,
+    opacity 0.4s ease,
+    padding 0.4s ease;
+  -ms-transition:
+    max-height 0.4s ease,
+    opacity 0.4s ease,
+    padding 0.4s ease;
+  transition:
+    max-height 0.4s ease,
+    opacity 0.4s ease,
+    padding 0.4s ease;
+}
+
+.accordion-content.is-open {
+  max-height: 1000px; /* С запасом для анимации */
+  opacity: 1;
 }
