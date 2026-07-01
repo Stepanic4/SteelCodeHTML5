@@ -308,51 +308,37 @@ h4.steel-block,
 h5.steel-block,
 h6.steel-block {
   border-bottom: solid 1px #dfe4ea;
-  width: -moz-max-content;
-  width: -webkit-max-content;
-  width: -ms-max-content;
-  width: max-content;
+  width: 100%;
   padding-bottom: 0.5rem;
-  margin: 0 0 2rem 0;
+  margin: 0 0 1.5rem 0;
 }
 
 h1 {
-  font-size: 2.25rem;
-  line-height: 1.3;
-  letter-spacing: 0.5rem;
+  font-size: 2rem;
+  line-height: 1.2;
+  letter-spacing: 0.1rem;
 }
 
 h2 {
   font-size: 1.5rem;
-  line-height: 1.4;
-  letter-spacing: 0.5rem;
+  line-height: 1.3;
+  letter-spacing: 0.05rem;
 }
 
 h3 {
-  font-size: 1rem;
-}
-
-h4 {
-  font-size: 0.8rem;
-}
-
-h5 {
-  font-size: 0.7rem;
-}
-
-h6 {
-  font-size: 0.6rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.02rem;
 }
 
 @media screen and (max-width: 736px) {
   h1 {
-    font-size: 1.75rem;
-    line-height: 1.4;
+    font-size: 1.5rem;
+    letter-spacing: 0;
   }
 
   h2 {
-    font-size: 1.25em;
-    line-height: 1.5;
+    font-size: 1.1rem;
+    letter-spacing: 0;
   }
 }
 
@@ -1969,93 +1955,51 @@ body.is-preload #footer {
 
 /* Responsive Map Wrapper */
 /* Contact Footer (Perfect Symmetry) */
+/* Контейнер */
 .contact-footer {
-  display: -moz-flex;
-  display: -webkit-flex;
-  display: -ms-flex;
   display: flex;
-  /* растягиваем блоки на одинаковую высоту */
-  -moz-align-items: stretch;
-  -webkit-align-items: stretch;
-  -ms-align-items: stretch;
-  align-items: stretch;
-  -moz-justify-content: space-between;
-  -webkit-justify-content: space-between;
-  -ms-justify-content: space-between;
+  align-items: stretch; /* Это заставляет карту и кнопки быть одной высоты */
   justify-content: space-between;
   margin-top: 1.5rem;
+  gap: 0.5rem;
 }
 
+/* Карта */
 .contact-footer .map-wrapper {
   width: 48%;
-  margin: 0;
   position: relative;
   border-radius: 4px;
   border: 1px solid #ced6e0;
   overflow: hidden;
 }
 
-.contact-footer .map-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  -webkit-filter: grayscale(100%) opacity(0.85);
-  filter: grayscale(100%) opacity(0.85);
-}
-
+/* Кнопки (Сетка) */
 .contact-footer .social-wrapper {
   width: 48%;
-  display: -moz-flex;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -moz-flex-direction: column;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -moz-justify-content: space-between;
-  -webkit-justify-content: space-between;
-  -ms-justify-content: space-between;
-  justify-content: space-between;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0.5rem;
 }
 
 .contact-footer .social-wrapper .social-btn {
   width: 100%;
-  margin-bottom: 0.5rem;
+  margin: 0 !important;
   background-color: transparent;
   color: #2d3436 !important;
 }
 
-.contact-footer .social-wrapper .social-btn:last-child {
-  margin-bottom: 0;
-}
-
-/* Фолбэк для мобилок */
+/* Мобильный вид */
 @media screen and (max-width: 736px) {
   .contact-footer {
-    -moz-flex-direction: column;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
     flex-direction: column;
   }
-  .contact-footer .map-wrapper {
-    width: 100%;
-    height: 150px; /* На мобилках задаем жесткую высоту, так как блоки идут в колонку */
-    margin-bottom: 1rem;
-  }
+  .contact-footer .map-wrapper,
   .contact-footer .social-wrapper {
     width: 100%;
   }
-}
-.contact-footer .social-wrapper .social-btn:hover {
-  background-color: rgba(0, 0, 0, 0.03);
-}
-
-.contact-footer .social-wrapper .social-btn:active {
-  background-color: rgba(0, 0, 0, 0.075);
+  .contact-footer .map-wrapper {
+    height: 150px;
+  }
 }
 /* =========================================
    ACCORDION (Price Calculator)
@@ -2104,28 +2048,17 @@ body.is-preload #footer {
 }
 
 .accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  -moz-transition:
-    max-height 0.4s ease,
-    opacity 0.4s ease,
-    padding 0.4s ease;
-  -webkit-transition:
-    max-height 0.4s ease,
-    opacity 0.4s ease,
-    padding 0.4s ease;
-  -ms-transition:
-    max-height 0.4s ease,
-    opacity 0.4s ease,
-    padding 0.4s ease;
+  max-height: 0 !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
   transition:
     max-height 0.4s ease,
-    opacity 0.4s ease,
-    padding 0.4s ease;
+    opacity 0.4s ease !important;
 }
-
+.accordion-content label {
+  letter-spacing: 0;
+}
 .accordion-content.is-open {
-  max-height: 1000px; /* С запасом для анимации */
-  opacity: 1;
+  max-height: 2000px !important; /* Увеличил запас */
+  opacity: 1 !important;
 }
