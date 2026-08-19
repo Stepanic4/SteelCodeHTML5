@@ -2019,17 +2019,29 @@ body.is-preload #footer {
   transform: rotate(180deg);
 }
 
+/* Базовое состояние */
 .accordion-content {
   max-height: 0 !important;
   overflow: hidden !important;
   opacity: 0 !important;
+  /* Увеличили время с 0.6s до 1.2s для max-height и с 0.5s до 1s для opacity */
+  -webkit-transition:
+    max-height 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 1s ease-in-out !important;
+  -moz-transition:
+    max-height 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 1s ease-in-out !important;
+  -ms-transition:
+    max-height 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 1s ease-in-out !important;
   transition:
-    max-height 0.4s ease,
-    opacity 0.4s ease !important;
+    max-height 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 1s ease-in-out !important;
 }
 
+/* Открытое состояние */
 .accordion-content.is-open {
-  max-height: 2000px !important; /* Увеличил запас */
+  max-height: 450px !important; /* Жесткий лимит под 5-6 чекбоксов, не больше */
   opacity: 1 !important;
 }
 
@@ -2075,4 +2087,43 @@ body.is-preload #footer {
   font-weight: 700;
   color: #1e272e;
   line-height: 1;
+}
+
+/* Базовое состояние аккордеона с высоким весом селектора */
+#price-calculator #calc-accordion-content.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  /* Увеличено время анимации до 1.2s */
+  -webkit-transition:
+    max-height 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 1s ease-in-out;
+  -moz-transition:
+    max-height 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 1s ease-in-out;
+  -ms-transition:
+    max-height 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 1s ease-in-out;
+  transition:
+    max-height 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 1s ease-in-out;
+}
+
+/* Открытое состояние */
+#price-calculator #calc-accordion-content.accordion-content.is-open {
+  max-height: 450px;
+  opacity: 1;
+}
+
+/* Фикс текста в чекбоксах */
+#price-calculator .field input[type="checkbox"] + label {
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+/* Фикс блока итоговой цены */
+#price-calculator .total-price-box #calc-total {
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: 1rem;
 }
