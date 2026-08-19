@@ -1,6 +1,6 @@
 /*
-    Project: SteelCode Studio
-    Author: SteelCode.cz
+    Project: Krokbit Studio
+    Author: Krokbit.cz
     File: main.js
     Description: Core styles for the lightweight HTML/JS version of the site.
 */
@@ -510,4 +510,94 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 800);
     });
   }
+
+  ///////////////////////  WebGL slider //////////////////////
+  // --- ЛОГИКА ГАЛЕРЕИ ---
+  var sliderContainer = document.getElementById("smart-slider-container");
+  var fallbackSlider = document.getElementById("fallback-2d-slider");
+
+  if (fallbackSlider) {
+    var slides = fallbackSlider.querySelectorAll(".slide");
+    var btnPrev = fallbackSlider.querySelector(".slider-prev");
+    var btnNext = fallbackSlider.querySelector(".slider-next");
+    var currentIndex = 0;
+
+    function showSlide(index) {
+      if (slides.length === 0) return;
+      if (index < 0) index = slides.length - 1;
+      if (index >= slides.length) index = 0;
+
+      for (var i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+        slides[i].classList.remove("active");
+
+        var crop = slides[i].querySelector(".before-crop");
+        var handle = slides[i].querySelector(".slider-handle");
+        if (crop) crop.style.width = "50%";
+        if (handle) handle.style.left = "50%";
+      }
+
+      slides[index].style.display = "block";
+      slides[index].classList.add("active");
+      currentIndex = index;
+    }
+
+    if (btnPrev && btnNext) {
+      btnPrev.addEventListener("click", function (e) {
+        e.preventDefault();
+        showSlide(currentIndex - 1);
+      });
+      btnNext.addEventListener("click", function (e) {
+        e.preventDefault();
+        showSlide(currentIndex + 1);
+      });
+    }
+
+    showSlide(0);
+
+    var isDragging = false;
+
+    function onDragStart(e) {
+      if (e.target.closest(".slider-nav-btn")) return;
+      isDragging = true;
+    }
+
+    function onDragEnd() {
+      isDragging = false;
+    }
+
+    function onDragMove(e) {
+      if (!isDragging) return;
+      var activeSlide = slides[currentIndex];
+      if (!activeSlide) return;
+
+      var wrapper = activeSlide.querySelector(".before-after-wrapper");
+      var crop = activeSlide.querySelector(".before-crop");
+      var handle = activeSlide.querySelector(".slider-handle");
+
+      if (!wrapper || !crop || !handle) return;
+
+      var rect = wrapper.getBoundingClientRect();
+      var pageX = e.type.indexOf("touch") !== -1 ? e.touches[0].pageX : e.pageX;
+      var xPos = pageX - (rect.left + window.scrollX);
+
+      if (xPos < 0) xPos = 0;
+      if (xPos > rect.width) xPos = rect.width;
+
+      var percent = (xPos / rect.width) * 100;
+      crop.style.width = percent + "%";
+      handle.style.left = percent + "%";
+    }
+
+    fallbackSlider.addEventListener("mousedown", onDragStart);
+    fallbackSlider.addEventListener("touchstart", onDragStart, {
+      passive: true,
+    });
+
+    window.addEventListener("mouseup", onDragEnd);
+    window.addEventListener("touchend", onDragEnd);
+    window.addEventListener("mousemove", onDragMove);
+    window.addEventListener("touchmove", onDragMove, { passive: true });
+  }
+  // ////////////////////// END WebGL slider/////////////
 });

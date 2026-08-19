@@ -2127,3 +2127,129 @@ body.is-preload #footer {
   flex-shrink: 0;
   margin-left: 1rem;
 }
+
+/* /////////////////////       Базовый контейнер GALERY SLIDER ///////////////////*/
+
+#galerie .vanilla-slider {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+#galerie .slide {
+  display: none;
+}
+#galerie .slide.active {
+  display: block;
+}
+
+/* Кнопки навигации */
+#base article#galerie .slider-wrapper button.slider-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: #2d3436;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  padding: 0;
+  margin: 0;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+#base article#galerie .slider-wrapper button.slider-nav-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-50%) scale(1.05);
+}
+
+#base article#galerie .slider-wrapper button.slider-prev {
+  left: 10px;
+}
+
+#base article#galerie .slider-wrapper button.slider-next {
+  right: 10px;
+}
+
+#base article#galerie .slider-wrapper button.slider-nav-btn .icon:before {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Шторка До/После */
+#galerie .before-after-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #f8f9fa;
+  border: 1px solid #ced6e0;
+}
+
+#galerie .img-after {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+#galerie .before-crop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#galerie .img-before {
+  display: block;
+  height: auto;
+  max-width: none;
+}
+
+#galerie .slider-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: #ffffff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  cursor: ew-resize;
+  transform: translateX(-50%);
+  z-index: 10;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#galerie .slider-handle::after {
+  content: "< >";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  color: #2d3436;
+  font-size: 0.7rem;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  letter-spacing: -1px;
+}
+/*//////////////        END GALERY SLIDER        //////// */

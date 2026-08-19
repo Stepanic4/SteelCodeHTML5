@@ -82,6 +82,7 @@
             <li><a href="#sluzby">Služby</a></li>
             <li><a href="#cenik">Ceník</a></li>
             <li><a href="#o-nas">O mně</a></li>
+            <li><a href="#galerie">Galerie</a></li>
             <li><a href="#kontakt">Kontakt</a></li>
           </ul>
         </nav>
@@ -222,6 +223,42 @@
             na bezpečnosti a kvalitě nešetřím. Mým cílem není změnit vás k
             nepoznání, ale vrátit vám odpočatý výraz a sebevědomí.“
           </p>
+        </article>
+
+        <article id="galerie">
+          <h2 class="steel-block">Před a Po procedurách</h2>
+          <p>
+            Reálné výsledky naší práce. Posunutím porovnáte stav před a po
+            ošetření.
+          </p>
+
+          <!-- Контейнер слайдера. По умолчанию содержит 2D версию -->
+          <div id="smart-slider-container" class="slider-wrapper">
+            <!-- Ванильный 2D слайдер для iPhone 5 / слабых ПК -->
+            <div id="fallback-2d-slider" class="vanilla-slider">
+              <!-- Пример одного слайда -->
+              <div class="slide active">
+                <div class="before-after-wrapper" id="ba-wrapper">
+                  <img src="images/about.jpg" alt="Po" class="img-after" />
+                  <div class="before-crop" id="before-crop">
+                    <img
+                      src="images/services.jpg"
+                      alt="Před"
+                      class="img-before"
+                    />
+                  </div>
+                  <div class="slider-handle" id="slider-handle"></div>
+                </div>
+              </div>
+              <!-- Навигация 2D слайдера (поверх картинки) -->
+              <button class="slider-nav-btn slider-prev" aria-label="Předchozí">
+                <span class="icon solid fa-chevron-left"></span>
+              </button>
+              <button class="slider-nav-btn slider-next" aria-label="Další">
+                <span class="icon solid fa-chevron-right"></span>
+              </button>
+            </div>
+          </div>
         </article>
 
         <article id="kontakt">
