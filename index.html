@@ -232,25 +232,52 @@
             ošetření.
           </p>
 
-          <!-- Контейнер слайдера. По умолчанию содержит 2D версию -->
+          <!-- Контейнер слайдера -->
           <div id="smart-slider-container" class="slider-wrapper">
             <!-- Ванильный 2D слайдер для iPhone 5 / слабых ПК -->
             <div id="fallback-2d-slider" class="vanilla-slider">
-              <!-- Пример одного слайда -->
+              <!-- Слайд 1 (Активный) -->
               <div class="slide active">
-                <div class="before-after-wrapper" id="ba-wrapper">
+                <div class="before-after-wrapper">
                   <img src="images/ey-after.jpg" alt="Po" class="img-after" />
-                  <div class="before-crop" id="before-crop">
+                  <div class="before-crop">
                     <img
                       src="images/ey-befor.jpg"
                       alt="Před"
                       class="img-before"
                     />
                   </div>
-                  <div class="slider-handle" id="slider-handle"></div>
+                  <div class="slider-handle"></div>
                 </div>
               </div>
-              <!-- Навигация 2D слайдера (поверх картинки) -->
+
+              <!-- Слайд 2 -->
+              <div class="slide">
+                <div class="before-after-wrapper">
+                  <img src="images/lib1.jpg" alt="Po" class="img-after" />
+                  <div class="before-crop">
+                    <img src="images/lib2.jpg" alt="Před" class="img-before" />
+                  </div>
+                  <div class="slider-handle"></div>
+                </div>
+              </div>
+
+              <!-- Слайд 3 -->
+              <div class="slide">
+                <div class="before-after-wrapper">
+                  <img src="images/nose-after.jpg" alt="Po" class="img-after" />
+                  <div class="before-crop">
+                    <img
+                      src="images/nose-befor.jpg"
+                      alt="Před"
+                      class="img-before"
+                    />
+                  </div>
+                  <div class="slider-handle"></div>
+                </div>
+              </div>
+
+              <!-- Навигация 2D слайдера (одна на все слайды) -->
               <button class="slider-nav-btn slider-prev" aria-label="Předchozí">
                 <span class="icon solid fa-chevron-left"></span>
               </button>

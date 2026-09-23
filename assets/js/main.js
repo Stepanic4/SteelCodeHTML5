@@ -529,7 +529,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (wrapper && imgBefore) {
           var w = wrapper.offsetWidth;
-          // Ставим ширину только если секция реально видима на экране
           if (w > 0) {
             imgBefore.style.width = w + "px";
           }
@@ -572,8 +571,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showSlide(0);
 
-    // ФИКС ДЛЯ ТВОЕГО SPA: Заставляем JS пересчитать ширину после того,
-    // как отработает анимация появления вкладки (325ms)
     function forceSyncAfterAnimation() {
       setTimeout(syncImageWidth, 50);
       setTimeout(syncImageWidth, 400);
