@@ -639,3 +639,5 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   // ////////////////////// END WebGL slider/////////////
 });
+// ////////////////////// year in footer/////////////
+document.getElementById("current-year").textContent = new Date().getFullYear();
