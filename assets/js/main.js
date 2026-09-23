@@ -511,7 +511,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  ///////////////////////  WebGL slider //////////////////////
+  // ///////////////////////  WebGL slider //////////////////////
   // --- ЛОГИКА ГАЛЕРЕИ ---
   var sliderContainer = document.getElementById("smart-slider-container");
   var fallbackSlider = document.getElementById("fallback-2d-slider");
@@ -521,6 +521,21 @@ document.addEventListener("DOMContentLoaded", function () {
     var btnPrev = fallbackSlider.querySelector(".slider-prev");
     var btnNext = fallbackSlider.querySelector(".slider-next");
     var currentIndex = 0;
+
+    function syncImageWidth() {
+      for (var i = 0; i < slides.length; i++) {
+        var wrapper = slides[i].querySelector(".before-after-wrapper");
+        var imgBefore = slides[i].querySelector(".img-before");
+
+        if (wrapper && imgBefore) {
+          var w = wrapper.offsetWidth;
+          // Ставим ширину только если секция реально видима на экране
+          if (w > 0) {
+            imgBefore.style.width = w + "px";
+          }
+        }
+      }
+    }
 
     function showSlide(index) {
       if (slides.length === 0) return;
@@ -540,6 +555,8 @@ document.addEventListener("DOMContentLoaded", function () {
       slides[index].style.display = "block";
       slides[index].classList.add("active");
       currentIndex = index;
+
+      syncImageWidth();
     }
 
     if (btnPrev && btnNext) {
@@ -554,6 +571,30 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     showSlide(0);
+
+    // ФИКС ДЛЯ ТВОЕГО SPA: Заставляем JS пересчитать ширину после того,
+    // как отработает анимация появления вкладки (325ms)
+    function forceSyncAfterAnimation() {
+      setTimeout(syncImageWidth, 50);
+      setTimeout(syncImageWidth, 400);
+    }
+
+    // Слушаем клики по меню (смена хэша)
+    window.addEventListener("hashchange", forceSyncAfterAnimation);
+
+    // Если кто-то зашел сразу по прямой ссылке /#galerie
+    window.addEventListener("load", forceSyncAfterAnimation);
+
+    // Стандартный ресайз окна
+    window.addEventListener("resize", syncImageWidth);
+
+    // Страховка на случай медленного интернета
+    var allImages = fallbackSlider.querySelectorAll("img");
+    for (var k = 0; k < allImages.length; k++) {
+      if (!allImages[k].complete) {
+        allImages[k].addEventListener("load", forceSyncAfterAnimation);
+      }
+    }
 
     var isDragging = false;
 
