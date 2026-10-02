@@ -465,8 +465,10 @@ document.addEventListener("DOMContentLoaded", function () {
           errorMsg.id = "phone-error";
           errorMsg.style.color = "#d63031";
           errorMsg.style.fontSize = "0.8rem";
-          errorMsg.style.marginTop = "-0.5rem";
-          errorMsg.style.marginBottom = "1rem";
+          errorMsg.style.marginTop =
+            "0.25rem"; /* Положительное значение откинет текст вниз */
+          errorMsg.style.marginBottom = "0";
+          errorMsg.style.lineHeight = "1.2";
           errorMsg.innerHTML =
             "Zadejte platné 9místné číslo (např. 777 123 456)";
           phoneInput.parentNode.insertBefore(errorMsg, phoneInput.nextSibling);

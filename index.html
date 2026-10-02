@@ -286,11 +286,30 @@
             <div class="fields">
               <div class="field half">
                 <label for="name">Jméno a příjmení</label>
-                <input type="text" name="name" id="name" required />
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  required
+                  oninvalid="
+                    this.setCustomValidity('Vyplňte prosím toto pole.')
+                  "
+                  oninput="this.setCustomValidity('')"
+                />
               </div>
               <div class="field half">
                 <label for="phone">Telefon</label>
-                <input type="tel" name="phone" id="phone" required />
+                <input
+                  type="tel"
+                  name="phone"
+                  id="phone"
+                  pattern="^[+0-9\s]*$"
+                  required
+                  oninvalid="
+                    this.setCustomValidity('Vyplňte prosím toto pole správně.')
+                  "
+                  oninput="this.setCustomValidity('')"
+                />
               </div>
 
               <div class="field">
@@ -300,6 +319,10 @@
                   id="message"
                   rows="2"
                   required
+                  oninvalid="
+                    this.setCustomValidity('Vyplňte prosím toto pole.')
+                  "
+                  oninput="this.setCustomValidity('')"
                 ></textarea>
               </div>
             </div>
