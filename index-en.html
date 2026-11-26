@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+
+    <title>Baunová Clinic | Aesthetic Medicine Prague</title>
+    <meta
+      name="description"
+      content="Premium aesthetic medicine clinic in the center of Prague. Specializing in botox, hyaluronic acid fillers, and anti-aging procedures."
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/steelcode.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="is-preload">
+    <div class="lang-switcher">
+      <a href="index.html">CZ</a> |
+      <a href="index-en.html" class="active">EN</a>
+    </div>
+
+    <div id="this-wrapper">
+      <header id="one-header">
+        <div class="logo">
+          <span class="icon solid fa-spa" style="font-size: 3rem"></span>
+        </div>
+        <div class="content">
+          <div class="inland">
+            <h1>Baunová Clinic</h1>
+            <p>
+              Premium aesthetic medicine clinic led by MUDr. Baunová.<br />
+              Innovative anti-aging procedures, natural results, and an
+              individual approach to your beauty.
+            </p>
+          </div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#sluzby">Services</a></li>
+            <li><a href="#cenik">Pricing</a></li>
+            <li><a href="#o-nas">About Me</a></li>
+            <li><a href="#galerie">Gallery</a></li>
+            <li><a href="#kontakt">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <div id="base" style="display: none">
+        <article id="sluzby">
+          <div class="close"></div>
+          <h2 class="steel-block">Our Services</h2>
+          <span class="image main"
+            ><img
+              src="images/services.jpg"
+              alt="Aesthetic medicine"
+              loading="lazy"
+          /></span>
+          <p>
+            We specialize in minimally invasive aesthetic procedures that
+            enhance your natural beauty and slow the signs of aging.
+          </p>
+          <ul>
+            <li>Botulinum toxin application (wrinkle smoothing)</li>
+            <li>Hyaluronic acid fillers (lips, cheeks, contours)</li>
+            <li>Mesotherapy and skin biorevitalization</li>
+            <li>Plasmatherapy (PRP lifting)</li>
+          </ul>
+        </article>
+
+        <article id="cenik">
+          <div class="close"></div>
+          <h2 class="steel-block">Procedure Calculator</h2>
+          <span class="image main"
+            ><img src="images/tech.jpg" alt="Pricing" loading="lazy"
+          /></span>
+          <p>
+            Create your own treatment plan. Select the desired procedures to see
+            the estimated total price immediately.
+          </p>
+          <form id="price-calculator" class="calculator-form">
+            <div
+              id="calc-accordion-toggle"
+              class="accordion-toggle calc-header"
+            >
+              <strong>Show available procedures</strong>
+              <span class="icon solid fa-chevron-down accordion-arrow"></span>
+            </div>
+            <div id="calc-accordion-content" class="accordion-content">
+              <div class="fields calc-fields">
+                <div class="field">
+                  <input type="checkbox" id="calc-botox-1" value="3500" /><label
+                    for="calc-botox-1"
+                    >Botox application (1 area) — 3 500 CZK</label
+                  >
+                </div>
+                <div class="field">
+                  <input type="checkbox" id="calc-botox-3" value="7500" /><label
+                    for="calc-botox-3"
+                    >Botox application (3 areas) — 7 500 CZK</label
+                  >
+                </div>
+                <div class="field">
+                  <input
+                    type="checkbox"
+                    id="calc-filler-1"
+                    value="6000"
+                  /><label for="calc-filler-1"
+                    >Hyaluronic filler (1 ml) — 6 000 CZK</label
+                  >
+                </div>
+                <div class="field">
+                  <input type="checkbox" id="calc-lips" value="6500" /><label
+                    for="calc-lips"
+                    >Lip modeling and augmentation — 6 500 CZK</label
+                  >
+                </div>
+                <div class="field">
+                  <input type="checkbox" id="calc-plasma" value="4000" /><label
+                    for="calc-plasma"
+                    >Plasmatherapy (PRP lifting) — 4 000 CZK</label
+                  >
+                </div>
+                <div class="field">
+                  <input
+                    type="checkbox"
+                    id="calc-threads"
+                    value="12000"
+                  /><label for="calc-threads">Thread lift — 12 000 CZK</label>
+                </div>
+              </div>
+            </div>
+            <hr class="calc-divider" />
+            <div class="total-price-box">
+              <h3>Estimated total price:</h3>
+              <div id="calc-total">0 CZK</div>
+            </div>
+          </form>
+        </article>
+
+        <article id="o-nas">
+          <div class="close"></div>
+          <h2 class="steel-block">About Me</h2>
+          <span class="image main"
+            ><img src="images/about.jpg" alt="MUDr. Baunová" loading="lazy"
+          /></span>
+          <p>
+            "I am a certified doctor in anti-aging medicine. I do not believe in
+            templates or artificial looks. My work is about details – restoring
+            skin firmness and natural freshness, without anyone knowing you've
+            had an aesthetic procedure. I work exclusively with premium
+            materials because I do not compromise on safety and quality. My goal
+            is not to change you beyond recognition, but to return your rested
+            appearance and confidence."
+          </p>
+        </article>
+
+        <article id="galerie">
+          <div class="close"></div>
+          <h2 class="steel-block">Before & After</h2>
+          <p>
+            Real results of our work. Drag the slider to compare the condition
+            before and after treatment.
+          </p>
+          <div id="smart-slider-container" class="slider-wrapper">
+            <div id="fallback-2d-slider" class="vanilla-slider">
+              <div class="slide active">
+                <div class="before-after-wrapper">
+                  <img src="images/ey1.jpg" alt="After" class="img-after" />
+                  <div class="before-crop">
+                    <img src="images/ey2.jpg" alt="Before" class="img-before" />
+                  </div>
+                  <div class="slider-handle"></div>
+                </div>
+              </div>
+              <div class="slide">
+                <div class="before-after-wrapper">
+                  <img src="images/lib1.jpg" alt="After" class="img-after" />
+                  <div class="before-crop">
+                    <img
+                      src="images/lib2.jpg"
+                      alt="Before"
+                      class="img-before"
+                    />
+                  </div>
+                  <div class="slider-handle"></div>
+                </div>
+              </div>
+              <button class="slider-nav-btn slider-prev" aria-label="Previous">
+                <span class="icon solid fa-chevron-left"></span>
+              </button>
+              <button class="slider-nav-btn slider-next" aria-label="Next">
+                <span class="icon solid fa-chevron-right"></span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article id="kontakt">
+          <div class="close"></div>
+          <h2 class="steel-block">Book an Appointment</h2>
+          <form id="contact-form">
+            <div class="fields">
+              <div class="field half">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" required />
+              </div>
+              <div class="field half">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" pattern="^[+0-9\s]*$" required />
+              </div>
+              <div class="field">
+                <label for="message">Desired Procedure / Inquiry</label>
+                <textarea id="message" rows="2" required></textarea>
+              </div>
+            </div>
+            <ul class="actions fit">
+              <li>
+                <input type="submit" value="Submit Request" class="primary" />
+              </li>
+              <li><input type="reset" value="Clear" /></li>
+            </ul>
+          </form>
+          <div class="contact-footer">
+            <div class="map-wrapper">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2560.108537550303!2d14.422521315718134!3d50.08119897942697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b94ebc3c7c22f%3A0xc6c4293f25c7cc68!2sVodi%C4%8Dkova%2C%20Praha%201!5e0!3m2!1sen!2scz!4v1714578123456!5m2!1sen!2scz"
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div class="social-wrapper">
+              <a href="#" class="button social-btn icon brands fa-facebook-f"
+                >Facebook</a
+              >
+              <a href="#" class="button social-btn icon brands fa-instagram"
+                >Instagram</a
+              >
+              <a href="#" class="button social-btn icon brands fa-linkedin-in"
+                >LinkedIn</a
+              >
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <footer id="footer">
+        <p class="copyright">
+          &copy; <span id="current-year"></span> MUDr. Baunová – Aesthetic
+          Medicine. All rights reserved.
+        </p>
+        <p class="copyright developer-credit">
+          Design & Development:
+          <a href="https://krokbit.cz" target="_blank" rel="noopener"
+            >Krokbit</a
+          >
+        </p>
+      </footer>
+    </div>
+
+    <div id="bg"></div>
+
+    <div id="cookie-consent" class="cookie-banner">
+      <p>
+        This website uses cookies. By continuing, you agree to their use in
+        accordance with GDPR.
+      </p>
+      <button id="accept-cookies" class="button primary small">Accept</button>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

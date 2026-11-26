@@ -12,66 +12,35 @@
       name="description"
       content="Prémiová klinika estetické medicíny v centru Prahy. Specializujeme se na aplikaci botulotoxinu, výplně kyselinou hyaluronovou a anti-aging procedury."
     />
-    <meta
-      name="keywords"
-      content="estetická medicína Praha, botox Praha, zvětšení rtů, kyselina hyaluronová, anti-aging klinika"
-    />
-    <meta name="author" content="SteelCode.cz" />
 
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="Baunová Clinic | Estetická medicína Praha"
-    />
-    <meta
-      property="og:description"
-      content="Inovativní anti-aging procedury a přirozené výsledky. Rezervujte si termín na naší klinice."
-    />
-    <meta property="og:url" content="https://clinic.steelcode.cz/" />
-    <meta
-      property="og:image"
-      content="https://clinic.steelcode.cz/images/bau.webp"
-    />
-
+    <!-- Подключаем оригинальные иконки через надежный CDN, чтобы не зависеть от папки webfonts -->
     <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="favicon/apple-touch-icon.png"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
+    <link rel="stylesheet" href="assets/css/steelcode.css" />
     <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="favicon/favicon-96x96.png"
-    />
-    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
-    <link rel="manifest" href="favicon/site.webmanifest" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
-
-    <link rel="stylesheet" href="assets/css/steelcode.css" />
-    <noscript>
-      <link rel="stylesheet" href="assets/css/noscript.css" />
-    </noscript>
   </head>
-  <body class="steel">
+  <body class="is-preload">
+    <!-- Переключатель языков СНАРУЖИ this-wrapper, чтобы не ломать Flexbox -->
+    <div class="lang-switcher">
+      <a href="index.html" class="active">CZ</a> |
+      <a href="index-en.html">EN</a>
+    </div>
+
     <div id="this-wrapper">
       <header id="one-header">
         <div class="logo">
-          <!-- Заглушка под логотип (FontAwesome) -->
           <span class="icon solid fa-spa" style="font-size: 3rem"></span>
         </div>
         <div class="content">
           <div class="inland">
             <h1>Baunová Clinic</h1>
             <p>
-              Prémiová klinika estetické medicíny pod vedením MUDr. Baunové.
-              <br />
+              Prémiová klinika estetické medicíny pod vedením MUDr. Baunové.<br />
               Inovativní anti-aging procedury, přirozené výsledky a individuální
               přístup k vaší kráse.
             </p>
@@ -88,16 +57,16 @@
         </nav>
       </header>
 
-      <div id="base">
+      <div id="base" style="display: none">
         <article id="sluzby">
+          <div class="close"></div>
           <h2 class="steel-block">Naše služby</h2>
-          <span class="image main">
-            <img
+          <span class="image main"
+            ><img
               src="images/services.jpg"
               alt="Estetická medicína"
               loading="lazy"
-            />
-          </span>
+          /></span>
           <p>
             Specializujeme se na miniinvazivní estetické zákroky, které
             podtrhnou vaši přirozenou krásu a zpomalí projevy stárnutí.
@@ -111,16 +80,15 @@
         </article>
 
         <article id="cenik">
+          <div class="close"></div>
           <h2 class="steel-block">Kalkulačka procedur</h2>
-          <span class="image main">
-            <img src="images/tech.jpg" alt="Ceník zákroků" loading="lazy" />
-          </span>
+          <span class="image main"
+            ><img src="images/tech.jpg" alt="Ceník zákroků" loading="lazy"
+          /></span>
           <p>
             Sestavte si svůj orientační plán ošetření. Vyberte požadované
             procedury a ihned uvidíte celkovou cenu.
           </p>
-
-          <!-- JS-калькулятор -->
           <form id="price-calculator" class="calculator-form">
             <div
               id="calc-accordion-toggle"
@@ -129,92 +97,66 @@
               <strong>Zobrazit nabídku procedur</strong>
               <span class="icon solid fa-chevron-down accordion-arrow"></span>
             </div>
-
             <div id="calc-accordion-content" class="accordion-content">
               <div class="fields calc-fields">
                 <div class="field">
-                  <input
-                    type="checkbox"
-                    id="calc-botox-1"
-                    name="service"
-                    value="3500"
-                  />
-                  <label for="calc-botox-1">
-                    Aplikace botulotoxinu (1 lokalita) — 3&nbsp;500&nbsp;Kč
-                  </label>
+                  <input type="checkbox" id="calc-botox-1" value="3500" /><label
+                    for="calc-botox-1"
+                    >Aplikace botulotoxinu (1 lokalita) — 3 500 Kč</label
+                  >
                 </div>
                 <div class="field">
-                  <input
-                    type="checkbox"
-                    id="calc-botox-3"
-                    name="service"
-                    value="7500"
-                  />
-                  <label for="calc-botox-3">
-                    Aplikace botulotoxinu (3 lokality) — 7&nbsp;500&nbsp;Kč
-                  </label>
+                  <input type="checkbox" id="calc-botox-3" value="7500" /><label
+                    for="calc-botox-3"
+                    >Aplikace botulotoxinu (3 lokality) — 7 500 Kč</label
+                  >
                 </div>
                 <div class="field">
                   <input
                     type="checkbox"
                     id="calc-filler-1"
-                    name="service"
                     value="6000"
-                  />
-                  <label for="calc-filler-1">
-                    Výplň kyselinou hyaluronovou (1 ml) — 6&nbsp;000&nbsp;Kč
-                  </label>
+                  /><label for="calc-filler-1"
+                    >Výplň kyselinou hyaluronovou (1 ml) — 6 000 Kč</label
+                  >
                 </div>
                 <div class="field">
-                  <input
-                    type="checkbox"
-                    id="calc-lips"
-                    name="service"
-                    value="6500"
-                  />
-                  <label for="calc-lips">
-                    Modelace a zvětšení rtů — 6&nbsp;500&nbsp;Kč
-                  </label>
+                  <input type="checkbox" id="calc-lips" value="6500" /><label
+                    for="calc-lips"
+                    >Modelace a zvětšení rtů — 6 500 Kč</label
+                  >
                 </div>
                 <div class="field">
-                  <input
-                    type="checkbox"
-                    id="calc-plasma"
-                    name="service"
-                    value="4000"
-                  />
-                  <label for="calc-plasma">
-                    Plazmaterapie (PRP lifting) — 4&nbsp;000&nbsp;Kč
-                  </label>
+                  <input type="checkbox" id="calc-plasma" value="4000" /><label
+                    for="calc-plasma"
+                    >Plazmaterapie (PRP lifting) — 4 000 Kč</label
+                  >
                 </div>
                 <div class="field">
                   <input
                     type="checkbox"
                     id="calc-threads"
-                    name="service"
                     value="12000"
-                  />
-                  <label for="calc-threads">
-                    Niťový lifting (mezonitě) — 12&nbsp;000&nbsp;Kč
-                  </label>
+                  /><label for="calc-threads"
+                    >Niťový lifting (mezonitě) — 12 000 Kč</label
+                  >
                 </div>
               </div>
             </div>
-
             <hr class="calc-divider" />
-
             <div class="total-price-box">
               <h3>Orientační cena ošetření:</h3>
-              <div id="calc-total">0&nbsp;Kč</div>
+              <div id="calc-total">0 Kč</div>
             </div>
           </form>
         </article>
 
         <article id="o-nas">
+          <div class="close"></div>
           <h2 class="steel-block">O mně</h2>
-          <span class="image main">
-            <img src="images/about.jpg" alt="MUDr. Baunová" loading="lazy" />
-          </span>
+          <span class="image main"
+            ><img src="images/about.jpg" alt="MUDr. Baunová" loading="lazy"
+          /></span>
           <p>
             „Jsem lékařka s certifikací v anti-aging medicíně. Neuznávám šablony
             ani umělý vzhled. Moje práce je o detailech – vrátit pleti pevnost a
@@ -226,17 +168,14 @@
         </article>
 
         <article id="galerie">
+          <div class="close"></div>
           <h2 class="steel-block">Před a Po procedurách</h2>
           <p>
             Reálné výsledky naší práce. Posunutím porovnáte stav před a po
             ošetření.
           </p>
-
-          <!-- Контейнер слайдера -->
           <div id="smart-slider-container" class="slider-wrapper">
-            <!-- Ванильный 2D слайдер для iPhone 5 / слабых ПК -->
             <div id="fallback-2d-slider" class="vanilla-slider">
-              <!-- Слайд 1 (Активный) -->
               <div class="slide active">
                 <div class="before-after-wrapper">
                   <img src="images/ey1.jpg" alt="Po" class="img-after" />
@@ -246,8 +185,6 @@
                   <div class="slider-handle"></div>
                 </div>
               </div>
-
-              <!-- Слайд 2 -->
               <div class="slide">
                 <div class="before-after-wrapper">
                   <img src="images/lib1.jpg" alt="Po" class="img-after" />
@@ -257,19 +194,6 @@
                   <div class="slider-handle"></div>
                 </div>
               </div>
-
-              <!-- Слайд 3 -->
-              <div class="slide">
-                <div class="before-after-wrapper">
-                  <img src="images/nos1.jpg" alt="Po" class="img-after" />
-                  <div class="before-crop">
-                    <img src="images/nos2.jpg" alt="Před" class="img-before" />
-                  </div>
-                  <div class="slider-handle"></div>
-                </div>
-              </div>
-
-              <!-- Навигация 2D слайдера (одна на все слайды) -->
               <button class="slider-nav-btn slider-prev" aria-label="Předchozí">
                 <span class="icon solid fa-chevron-left"></span>
               </button>
@@ -281,49 +205,21 @@
         </article>
 
         <article id="kontakt">
+          <div class="close"></div>
           <h2 class="steel-block">Rezervace termínu</h2>
-          <form method="post" action="#" id="contact-form">
+          <form id="contact-form">
             <div class="fields">
               <div class="field half">
                 <label for="name">Jméno a příjmení</label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  required
-                  oninvalid="
-                    this.setCustomValidity('Vyplňte prosím toto pole.')
-                  "
-                  oninput="this.setCustomValidity('')"
-                />
+                <input type="text" id="name" required />
               </div>
               <div class="field half">
                 <label for="phone">Telefon</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  id="phone"
-                  pattern="^[+0-9\s]*$"
-                  required
-                  oninvalid="
-                    this.setCustomValidity('Vyplňte prosím toto pole správně.')
-                  "
-                  oninput="this.setCustomValidity('')"
-                />
+                <input type="tel" id="phone" pattern="^[+0-9\s]*$" required />
               </div>
-
               <div class="field">
                 <label for="message">Požadovaná procedura / Dotaz</label>
-                <textarea
-                  name="message"
-                  id="message"
-                  rows="2"
-                  required
-                  oninvalid="
-                    this.setCustomValidity('Vyplňte prosím toto pole.')
-                  "
-                  oninput="this.setCustomValidity('')"
-                ></textarea>
+                <textarea id="message" rows="2" required></textarea>
               </div>
             </div>
             <ul class="actions fit">
@@ -333,25 +229,23 @@
               <li><input type="reset" value="Vymazat" /></li>
             </ul>
           </form>
-
           <div class="contact-footer">
             <div class="map-wrapper">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2560.108537550303!2d14.422521315718134!3d50.08119897942697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b94ebc3c7c22f%3A0xc6c4293f25c7cc68!2sVodi%C4%8Dkova%2C%20Praha%201!5e0!3m2!1sen!2scz!4v1714578123456!5m2!1sen!2scz"
                 loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
               ></iframe>
             </div>
             <div class="social-wrapper">
-              <a href="#" class="button social-btn icon brands fa-facebook-f">
-                Facebook
-              </a>
-              <a href="#" class="button social-btn icon brands fa-instagram">
-                Instagram
-              </a>
-              <a href="#" class="button social-btn icon brands fa-linkedin-in">
-                LinkedIn
-              </a>
+              <a href="#" class="button social-btn icon brands fa-facebook-f"
+                >Facebook</a
+              >
+              <a href="#" class="button social-btn icon brands fa-instagram"
+                >Instagram</a
+              >
+              <a href="#" class="button social-btn icon brands fa-linkedin-in"
+                >LinkedIn</a
+              >
             </div>
           </div>
         </article>
@@ -384,10 +278,6 @@
       </button>
     </div>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
   </body>
 </html>

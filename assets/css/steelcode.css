@@ -1411,7 +1411,7 @@ body.is-preload #bg:before {
 
 #one-header > *:before {
   content: "";
-  display: block;
+  display: none;
   position: absolute;
   top: calc(-3.5rem - 1px);
   left: calc(50% - 1px);
@@ -2257,3 +2257,34 @@ body.is-preload #footer {
   letter-spacing: -1px;
 }
 /*//////////////        END GALERY SLIDER        //////// */
+
+/* ////////    LANG SWITCHER     ////////// */
+.lang-switcher {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  z-index: 100;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.lang-switcher a {
+  color: #a4b0be;
+  padding: 0.2rem 0.5rem;
+  border-bottom: none;
+  transition: color 0.2s;
+}
+.lang-switcher a:hover {
+  color: #1e272e;
+}
+.lang-switcher a.active {
+  color: #1e272e;
+  font-weight: 700;
+}
+@media screen and (max-width: 736px) {
+  .lang-switcher {
+    top: 1rem;
+    right: 1rem;
+  }
+}
+/* ////////    LANG SWITCHER END    ////////// */

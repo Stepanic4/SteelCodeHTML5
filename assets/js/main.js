@@ -1,645 +1,256 @@
-/*
-    Project: Krokbit Studio
-    Author: Krokbit.cz
-    File: main.js
-    Description: Core styles for the lightweight HTML/JS version of the site.
-*/
-(function ($) {
-  var $window = $(window),
-    $body = $("body"),
-    $wrapper = $("#this-wrapper"),
-    $header = $("#one-header"),
-    $footer = $("#footer"),
-    $main = $("#base"),
-    $main_articles = $main.children("article");
+document.addEventListener("DOMContentLoaded", () => {
+  const body = document.body;
+  const header = document.getElementById("one-header");
+  const footer = document.getElementById("footer");
+  const main = document.getElementById("base");
+  const articles = document.querySelectorAll("#base > article");
 
-  // Breakpoints.
-  breakpoints({
-    xlarge: ["1281px", "1680px"],
-    large: ["981px", "1280px"],
-    medium: ["737px", "980px"],
-    small: ["481px", "736px"],
-    xsmall: ["361px", "480px"],
-    xxsmall: [null, "360px"],
-  });
+  setTimeout(() => body.classList.remove("is-preload"), 100);
+  const yearEl = document.getElementById("current-year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Play initial animations on page load.
-  $window.on("load", function () {
-    window.setTimeout(function () {
-      $body.removeClass("is-preload");
-    }, 100);
-  });
+  const delay = 325;
+  let locked = false;
 
-  // Fix: Flexbox min-height bug on IE.
-  if (browser.name == "ie") {
-    var flexboxFixTimeoutId;
-
-    $window
-      .on("resize.flexbox-fix", function () {
-        clearTimeout(flexboxFixTimeoutId);
-
-        flexboxFixTimeoutId = setTimeout(function () {
-          if ($wrapper.prop("scrollHeight") > $window.height())
-            $wrapper.css("height", "auto");
-          else $wrapper.css("height", "100vh");
-        }, 250);
-      })
-      .triggerHandler("resize.flexbox-fix");
-  }
-
-  // Nav.
-  var $nav = $header.children("nav"),
-    $nav_li = $nav.find("li");
-
-  // Add "middle" alignment classes if we're dealing with an even number of items.
-  if ($nav_li.length % 2 == 0) {
-    $nav.addClass("use-middle");
-    $nav_li.eq($nav_li.length / 2).addClass("is-middle");
-  }
-
-  // Main.
-  var delay = 325,
-    locked = false;
-
-  // Methods.
-  $main._show = function (id, initial) {
-    var $article = $main_articles.filter("#" + id);
-
-    // No such article? Bail.
-    if ($article.length == 0) return;
-
-    // Handle lock.
-
-    // Already locked? Speed through "show" steps w/o delays.
-    if (locked || (typeof initial != "undefined" && initial === true)) {
-      // Mark as switching.
-      $body.addClass("is-switching");
-
-      // Mark as visible.
-      $body.addClass("is-article-visible");
-
-      // Deactivate all articles (just in case one's already active).
-      $main_articles.removeClass("active");
-
-      // Hide header, footer.
-      $header.hide();
-      $footer.hide();
-
-      // Show main, article.
-      $main.show();
-      $article.show();
-
-      // Activate article.
-      $article.addClass("active");
-
-      // Unlock.
-      locked = false;
-
-      // Unmark as switching.
-      setTimeout(
-        function () {
-          $body.removeClass("is-switching");
-        },
-        initial ? 1000 : 0,
-      );
-
-      return;
-    }
-
-    // Lock.
+  function showArticle(id, initial = false) {
+    const target = document.getElementById(id);
+    if (!target || locked) return;
     locked = true;
 
-    // Article already visible? Just swap articles.
-    if ($body.hasClass("is-article-visible")) {
-      // Deactivate current article.
-      var $currentArticle = $main_articles.filter(".active");
+    body.classList.add("is-article-visible");
 
-      $currentArticle.removeClass("active");
+    articles.forEach((art) => {
+      art.classList.remove("active");
+      art.style.display = "none";
+    });
 
-      // Show article.
-      setTimeout(function () {
-        // Hide current article.
-        $currentArticle.hide();
+    setTimeout(
+      () => {
+        header.style.display = "none";
+        footer.style.display = "none";
+        main.style.display = "flex";
+        target.style.display = "block";
 
-        // Show article.
-        $article.show();
+        setTimeout(() => {
+          target.classList.add("active");
+          window.scrollTo(0, 0);
 
-        // Activate article.
-        setTimeout(function () {
-          $article.addClass("active");
+          // Принудительно чиним размер ползунка после анимации
+          if (
+            id === "galerie" &&
+            typeof window.forceSyncSlider === "function"
+          ) {
+            window.forceSyncSlider();
+          }
 
-          // Window stuff.
-          $window.scrollTop(0).triggerHandler("resize.flexbox-fix");
-
-          // Unlock.
-          setTimeout(function () {
-            locked = false;
-          }, delay);
+          setTimeout(() => (locked = false), delay);
         }, 25);
-      }, delay);
-    }
+      },
+      initial ? 0 : delay,
+    );
+  }
 
-    // Otherwise, handle as normal.
-    else {
-      // Mark as visible.
-      $body.addClass("is-article-visible");
-
-      // Show article.
-      setTimeout(function () {
-        // Hide header, footer.
-        $header.hide();
-        $footer.hide();
-
-        // Show main, article.
-        $main.show();
-        $article.show();
-
-        // Activate article.
-        setTimeout(function () {
-          $article.addClass("active");
-
-          // Window stuff.
-          $window.scrollTop(0).triggerHandler("resize.flexbox-fix");
-
-          // Unlock.
-          setTimeout(function () {
-            locked = false;
-          }, delay);
-        }, 25);
-      }, delay);
-    }
-  };
-
-  $main._hide = function (addState) {
-    var $article = $main_articles.filter(".active");
-
-    // Article not visible? Bail.
-    if (!$body.hasClass("is-article-visible")) return;
-
-    // Add state?
-    if (typeof addState != "undefined" && addState === true)
-      history.pushState(null, null, "#");
-
-    // Handle lock.
-
-    // Already locked? Speed through "hide" steps w/o delays.
-    if (locked) {
-      // Mark as switching.
-      $body.addClass("is-switching");
-
-      // Deactivate article.
-      $article.removeClass("active");
-
-      // Hide article, main.
-      $article.hide();
-      $main.hide();
-
-      // Show footer, header.
-      $footer.show();
-      $header.show();
-
-      // Unmark as visible.
-      $body.removeClass("is-article-visible");
-
-      // Unlock.
-      locked = false;
-
-      // Unmark as switching.
-      $body.removeClass("is-switching");
-
-      // Window stuff.
-      $window.scrollTop(0).triggerHandler("resize.flexbox-fix");
-
-      return;
-    }
-
-    // Lock.
+  function hideArticles() {
+    if (!body.classList.contains("is-article-visible") || locked) return;
     locked = true;
-    /*zc.edoCleetS :rohtuA,oidutS edoCleetS :tcejorP*/
-    // Deactivate article.
-    $article.removeClass("active");
 
-    // Hide article.
-    setTimeout(function () {
-      // Hide article, main.
-      $article.hide();
-      $main.hide();
+    articles.forEach((art) => art.classList.remove("active"));
 
-      // Show footer, header.
-      $footer.show();
-      $header.show();
+    setTimeout(() => {
+      articles.forEach((art) => (art.style.display = "none"));
+      main.style.display = "none";
+      header.style.display = "flex";
+      footer.style.display = "block";
 
-      // Unmark as visible.
-      setTimeout(function () {
-        $body.removeClass("is-article-visible");
-
-        // Window stuff.
-        $window.scrollTop(0).triggerHandler("resize.flexbox-fix");
-
-        // Unlock.
-        setTimeout(function () {
-          locked = false;
-        }, delay);
+      setTimeout(() => {
+        body.classList.remove("is-article-visible");
+        window.scrollTo(0, 0);
+        setTimeout(() => (locked = false), delay);
       }, 25);
     }, delay);
-  };
-
-  // Articles.
-  $main_articles.each(function () {
-    var $this = $(this);
-
-    // Close.
-    $('<div class="close">Close</div>')
-      .appendTo($this)
-      .on("click", function () {
-        location.hash = "";
-      });
-
-    // Prevent clicks from inside article from bubbling.
-    $this.on("click", function (event) {
-      event.stopPropagation();
-    });
-  });
-
-  // Events.
-  $body.on("click", function (event) {
-    // Article visible? Hide.
-    if ($body.hasClass("is-article-visible")) $main._hide(true);
-  });
-
-  $window.on("keyup", function (event) {
-    switch (event.keyCode) {
-      case 27:
-        // Article visible? Hide.
-        if ($body.hasClass("is-article-visible")) $main._hide(true);
-
-        break;
-
-      default:
-        break;
-    }
-  });
-  /*Project: SteelCode Studio,Author: SteelCode.cz*/
-  $window.on("hashchange", function (event) {
-    // Empty hash?
-    if (location.hash == "" || location.hash == "#") {
-      // Prevent default.
-      event.preventDefault();
-      event.stopPropagation();
-
-      // Hide.
-      $main._hide();
-    }
-
-    // Otherwise, check for a matching article.
-    else if ($main_articles.filter(location.hash).length > 0) {
-      // Prevent default.
-      event.preventDefault();
-      event.stopPropagation();
-
-      // Show article.
-      $main._show(location.hash.substr(1));
-    }
-  });
-
-  // Scroll restoration.
-  // This prevents the page from scrolling back to the top on a hashchange.
-  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-  else {
-    var oldScrollPos = 0,
-      scrollPos = 0,
-      $htmlbody = $("html,body");
-
-    $window
-      .on("scroll", function () {
-        oldScrollPos = scrollPos;
-        scrollPos = $htmlbody.scrollTop();
-      })
-      .on("hashchange", function () {
-        $window.scrollTop(oldScrollPos);
-      });
   }
 
-  // Initialize.
+  window.addEventListener("hashchange", () => {
+    const hash = window.location.hash.substring(1);
+    if (!hash) hideArticles();
+    else showArticle(hash);
+  });
 
-  // Hide main, articles.
-  $main.hide();
-  $main_articles.hide();
+  if (window.location.hash)
+    showArticle(window.location.hash.substring(1), true);
 
-  // Initial article.
-  if (location.hash != "" && location.hash != "#")
-    $window.on("load", function () {
-      $main._show(location.hash.substr(1), true);
+  // Закрытие по крестику
+  document.querySelectorAll(".close").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      window.location.hash = "";
     });
-})(jQuery);
+  });
 
-/* =========================================
-   CUSTOM LOGIC: ES5 LEGACY-PROOF VERSION
-   ========================================= */
-document.addEventListener("DOMContentLoaded", function () {
-  // 1. GDPR COOKIE CONSENT
-  var cookieBanner = document.getElementById("cookie-consent");
-  var acceptCookiesBtn = document.getElementById("accept-cookies");
+  // Закрытие по ESC
+  body.addEventListener("keyup", (e) => {
+    if (e.key === "Escape") window.location.hash = "";
+  });
 
-  if (cookieBanner && acceptCookiesBtn) {
-    if (!localStorage.getItem("gdpr_accepted")) {
-      setTimeout(function () {
-        cookieBanner.style.display = "block";
-        var dummy = cookieBanner.offsetWidth; // Хак для reflow
-        cookieBanner.style.opacity = "1";
-      }, 1500);
+  // ФИКС: Закрытие окна при клике в пустоту (вне article)
+  body.addEventListener("click", (e) => {
+    if (body.classList.contains("is-article-visible")) {
+      if (!e.target.closest("article") && !e.target.closest('a[href^="#"]')) {
+        window.location.hash = "";
+      }
     }
+  });
 
-    acceptCookiesBtn.addEventListener("click", function () {
+  // Cookie Banner
+  const cookieBanner = document.getElementById("cookie-consent");
+  const acceptBtn = document.getElementById("accept-cookies");
+  if (cookieBanner && acceptBtn && !localStorage.getItem("gdpr_accepted")) {
+    setTimeout(() => {
+      cookieBanner.style.display = "block";
+      void cookieBanner.offsetWidth;
+      cookieBanner.style.opacity = "1";
+    }, 1500);
+    acceptBtn.addEventListener("click", () => {
       localStorage.setItem("gdpr_accepted", "true");
       cookieBanner.style.opacity = "0";
-
-      setTimeout(function () {
-        cookieBanner.style.display = "none";
-      }, 500);
+      setTimeout(() => (cookieBanner.style.display = "none"), 500);
     });
   }
 
-  // 2. PRICE CALCULATOR
-  var calculator = document.getElementById("price-calculator");
-  if (calculator) {
-    var checkboxes = calculator.querySelectorAll('input[type="checkbox"]');
-    var totalDisplay = document.getElementById("calc-total");
+  // Calculator
+  const calcForm = document.getElementById("price-calculator");
+  if (calcForm) {
+    const toggle = document.getElementById("calc-accordion-toggle");
+    const content = document.getElementById("calc-accordion-content");
+    const checkboxes = calcForm.querySelectorAll('input[type="checkbox"]');
+    const totalBox = document.getElementById("calc-total");
+    const currency = document.documentElement.lang === "en" ? "CZK" : "Kč";
 
-    // Кастомный ES5 форматтер: 4000 -> "4 000 Kč"
-    function formatCZK(num) {
-      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " Kč";
-    }
-
-    function updateTotal() {
-      var total = 0;
-      for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-          total += parseInt(checkboxes[i].value, 10);
-        }
-      }
-      totalDisplay.innerHTML = formatCZK(total);
-    }
-
-    for (var j = 0; j < checkboxes.length; j++) {
-      checkboxes[j].addEventListener("change", updateTotal);
-    }
-  }
-
-  // 3. FORM VALIDATION & HANDLING
-  var contactForm = document.getElementById("contact-form");
-  if (contactForm) {
-    var phoneInput = document.getElementById("phone");
-    var submitBtn = contactForm.querySelector('input[type="submit"]');
-    var czechPhoneRegex = /^(?:\+420)?\s*[0-9]{3}\s*[0-9]{3}\s*[0-9]{3}$/;
-
-    function resetFormState() {
-      var successBlock = document.getElementById("success-block");
-      if (successBlock && successBlock.parentNode) {
-        successBlock.parentNode.removeChild(successBlock);
-        contactForm.reset();
-        submitBtn.value = "Odeslat žádost";
-        submitBtn.className = submitBtn.className.replace(" disabled", "");
-        contactForm.style.display = "block";
-      }
-    }
-    // 3.5 ACCORDION TOGGLE
-    var accordionToggle = document.getElementById("calc-accordion-toggle");
-    var accordionContent = document.getElementById("calc-accordion-content");
-
-    if (accordionToggle && accordionContent) {
-      accordionToggle.addEventListener("click", function () {
-        var isOpen = accordionContent.className.indexOf("is-open") !== -1;
-
-        if (isOpen) {
-          // Закрываем
-          accordionContent.className = accordionContent.className.replace(
-            " is-open",
-            "",
-          );
-          accordionToggle.className = accordionToggle.className.replace(
-            " is-active",
-            "",
-          );
-        } else {
-          // Открываем
-          accordionContent.className += " is-open";
-          accordionToggle.className += " is-active";
-        }
+    if (toggle && content) {
+      toggle.addEventListener("click", () => {
+        toggle.classList.toggle("is-active");
+        content.classList.toggle("is-open");
       });
     }
 
-    // Обсервер для сброса при закрытии (поддерживается в IE11, для совсем старых просто не сработает)
-    var contactArticle = document.getElementById("kontakt");
-    if (contactArticle && window.MutationObserver) {
-      var observer = new MutationObserver(function (mutations) {
-        mutations.forEach(function (mutation) {
-          if (
-            mutation.attributeName === "class" &&
-            contactArticle.className.indexOf("active") === -1
-          ) {
-            resetFormState();
-          }
+    const formatNumber = (num) =>
+      num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " " + currency;
+
+    checkboxes.forEach((box) => {
+      box.addEventListener("change", () => {
+        let total = 0;
+        checkboxes.forEach((b) => {
+          if (b.checked) total += parseInt(b.value, 10);
         });
+        totalBox.textContent = formatNumber(total);
       });
-      observer.observe(contactArticle, { attributes: true });
-    }
-
-    phoneInput.addEventListener("input", function () {
-      phoneInput.style.borderColor = "";
-      phoneInput.style.boxShadow = "";
     });
+  }
 
-    contactForm.addEventListener("submit", function (e) {
+  // Form validation
+  const contactForm = document.getElementById("contact-form");
+  if (contactForm) {
+    const btn = contactForm.querySelector('input[type="submit"]');
+    contactForm.addEventListener("submit", (e) => {
       e.preventDefault();
+      btn.value =
+        document.documentElement.lang === "en" ? "Sending..." : "Odesílám...";
+      btn.classList.add("disabled");
 
-      // Полифилл trim() для старых браузеров
-      var rawPhoneVal = phoneInput.value.replace(/^\s+|\s+$/g, "");
-
-      if (!czechPhoneRegex.test(rawPhoneVal)) {
-        phoneInput.style.borderColor = "#d63031";
-        phoneInput.style.boxShadow = "0 0 0 1px #d63031";
-
-        if (!document.getElementById("phone-error")) {
-          var errorMsg = document.createElement("p");
-          errorMsg.id = "phone-error";
-          errorMsg.style.color = "#d63031";
-          errorMsg.style.fontSize = "0.8rem";
-          errorMsg.style.marginTop =
-            "0.25rem"; /* Положительное значение откинет текст вниз */
-          errorMsg.style.marginBottom = "0";
-          errorMsg.style.lineHeight = "1.2";
-          errorMsg.innerHTML =
-            "Zadejte platné 9místné číslo (např. 777 123 456)";
-          phoneInput.parentNode.insertBefore(errorMsg, phoneInput.nextSibling);
-        }
-        return;
-      }
-
-      var cleanPhone = rawPhoneVal.replace(/\s+/g, "");
-      if (cleanPhone.indexOf("+420") !== 0) {
-        cleanPhone = "+420" + cleanPhone;
-      }
-
-      submitBtn.value = "Odesílám...";
-      submitBtn.className += " disabled";
-
-      setTimeout(function () {
-        var formContainer = contactForm.parentNode;
+      setTimeout(() => {
         contactForm.style.display = "none";
-
-        // Чистый HTML без инлайн-стилей
-        var successHtml =
-          '<div id="success-block" class="box align-center success-box">' +
-          '<span class="icon solid fa-check-circle"></span>' +
-          "<h3>Děkujeme za váš zájem!</h3>" +
-          "<p>Vaše žádost byla úspěšně odeslána. Naše recepce vás bude brzy kontaktovat na čísle <strong>" +
-          cleanPhone +
-          "</strong>.</p>" +
-          '<button id="reset-form-btn" class="button small reset-btn">Odeslat další dotaz</button>' +
-          "</div>";
-
-        formContainer.insertAdjacentHTML("beforeend", successHtml);
-
-        var errorObj = document.getElementById("phone-error");
-        if (errorObj && errorObj.parentNode) {
-          errorObj.parentNode.removeChild(errorObj);
-        }
-
-        document
-          .getElementById("reset-form-btn")
-          .addEventListener("click", resetFormState);
+        const msg =
+          document.documentElement.lang === "en"
+            ? "Message sent successfully."
+            : "Vaše žádost byla úspěšně odeslána.";
+        contactForm.insertAdjacentHTML(
+          "afterend",
+          `<div class="success-box" style="text-align:center; padding: 2rem;"><h3>${msg}</h3></div>`,
+        );
       }, 800);
     });
   }
 
-  // ///////////////////////  WebGL slider //////////////////////
-  // --- ЛОГИКА ГАЛЕРЕИ ---
-  var sliderContainer = document.getElementById("smart-slider-container");
-  var fallbackSlider = document.getElementById("fallback-2d-slider");
+  // Slider
+  const slider = document.getElementById("fallback-2d-slider");
+  if (slider) {
+    const slides = slider.querySelectorAll(".slide");
+    let current = 0;
 
-  if (fallbackSlider) {
-    var slides = fallbackSlider.querySelectorAll(".slide");
-    var btnPrev = fallbackSlider.querySelector(".slider-prev");
-    var btnNext = fallbackSlider.querySelector(".slider-next");
-    var currentIndex = 0;
-
-    function syncImageWidth() {
-      for (var i = 0; i < slides.length; i++) {
-        var wrapper = slides[i].querySelector(".before-after-wrapper");
-        var imgBefore = slides[i].querySelector(".img-before");
-
-        if (wrapper && imgBefore) {
-          var w = wrapper.offsetWidth;
-          if (w > 0) {
-            imgBefore.style.width = w + "px";
-          }
-        }
-      }
+    function sync() {
+      slides.forEach((s) => {
+        const wrap = s.querySelector(".before-after-wrapper");
+        const img = s.querySelector(".img-before");
+        if (wrap && img && wrap.offsetWidth > 0)
+          img.style.width = wrap.offsetWidth + "px";
+      });
     }
 
+    // Вызов из глобальной области при открытии попапа
+    window.forceSyncSlider = () => {
+      setTimeout(sync, 50);
+      setTimeout(sync, 400);
+    };
+
     function showSlide(index) {
-      if (slides.length === 0) return;
+      if (!slides.length) return;
       if (index < 0) index = slides.length - 1;
       if (index >= slides.length) index = 0;
 
-      for (var i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-        slides[i].classList.remove("active");
-
-        var crop = slides[i].querySelector(".before-crop");
-        var handle = slides[i].querySelector(".slider-handle");
-        if (crop) crop.style.width = "50%";
-        if (handle) handle.style.left = "50%";
-      }
+      slides.forEach((s) => {
+        s.style.display = "none";
+        s.classList.remove("active");
+        s.querySelector(".before-crop").style.width = "50%";
+        s.querySelector(".slider-handle").style.left = "50%";
+      });
 
       slides[index].style.display = "block";
       slides[index].classList.add("active");
-      currentIndex = index;
-
-      syncImageWidth();
+      current = index;
+      sync();
     }
 
-    if (btnPrev && btnNext) {
-      btnPrev.addEventListener("click", function (e) {
-        e.preventDefault();
-        showSlide(currentIndex - 1);
-      });
-      btnNext.addEventListener("click", function (e) {
-        e.preventDefault();
-        showSlide(currentIndex + 1);
-      });
-    }
-
-    showSlide(0);
-
-    function forceSyncAfterAnimation() {
-      setTimeout(syncImageWidth, 50);
-      setTimeout(syncImageWidth, 400);
-    }
-
-    // Слушаем клики по меню (смена хэша)
-    window.addEventListener("hashchange", forceSyncAfterAnimation);
-
-    // Если кто-то зашел сразу по прямой ссылке /#galerie
-    window.addEventListener("load", forceSyncAfterAnimation);
-
-    // Стандартный ресайз окна
-    window.addEventListener("resize", syncImageWidth);
-
-    // Страховка на случай медленного интернета
-    var allImages = fallbackSlider.querySelectorAll("img");
-    for (var k = 0; k < allImages.length; k++) {
-      if (!allImages[k].complete) {
-        allImages[k].addEventListener("load", forceSyncAfterAnimation);
-      }
-    }
-
-    var isDragging = false;
-
-    function onDragStart(e) {
-      if (e.target.closest(".slider-nav-btn")) return;
-      isDragging = true;
-    }
-
-    function onDragEnd() {
-      isDragging = false;
-    }
-
-    function onDragMove(e) {
-      if (!isDragging) return;
-      var activeSlide = slides[currentIndex];
-      if (!activeSlide) return;
-
-      var wrapper = activeSlide.querySelector(".before-after-wrapper");
-      var crop = activeSlide.querySelector(".before-crop");
-      var handle = activeSlide.querySelector(".slider-handle");
-
-      if (!wrapper || !crop || !handle) return;
-
-      var rect = wrapper.getBoundingClientRect();
-      var pageX = e.type.indexOf("touch") !== -1 ? e.touches[0].pageX : e.pageX;
-      var xPos = pageX - (rect.left + window.scrollX);
-
-      if (xPos < 0) xPos = 0;
-      if (xPos > rect.width) xPos = rect.width;
-
-      var percent = (xPos / rect.width) * 100;
-      crop.style.width = percent + "%";
-      handle.style.left = percent + "%";
-    }
-
-    fallbackSlider.addEventListener("mousedown", onDragStart);
-    fallbackSlider.addEventListener("touchstart", onDragStart, {
-      passive: true,
+    slider.querySelector(".slider-prev").addEventListener("click", (e) => {
+      e.preventDefault();
+      showSlide(current - 1);
+    });
+    slider.querySelector(".slider-next").addEventListener("click", (e) => {
+      e.preventDefault();
+      showSlide(current + 1);
     });
 
-    window.addEventListener("mouseup", onDragEnd);
-    window.addEventListener("touchend", onDragEnd);
-    window.addEventListener("mousemove", onDragMove);
-    window.addEventListener("touchmove", onDragMove, { passive: true });
+    showSlide(0);
+    window.addEventListener("resize", sync);
+    window.addEventListener("hashchange", () => setTimeout(sync, 100));
+
+    let isDragging = false;
+    slider.addEventListener("mousedown", (e) => {
+      if (!e.target.closest(".slider-nav-btn")) isDragging = true;
+    });
+    slider.addEventListener(
+      "touchstart",
+      (e) => {
+        if (!e.target.closest(".slider-nav-btn")) isDragging = true;
+      },
+      { passive: true },
+    );
+    window.addEventListener("mouseup", () => (isDragging = false));
+    window.addEventListener("touchend", () => (isDragging = false));
+
+    const move = (e) => {
+      if (!isDragging) return;
+      const wrap = slides[current].querySelector(".before-after-wrapper");
+      const rect = wrap.getBoundingClientRect();
+      const pageX = e.touches ? e.touches[0].pageX : e.pageX;
+      let x = pageX - (rect.left + window.scrollX);
+      if (x < 0) x = 0;
+      if (x > rect.width) x = rect.width;
+      const percent = (x / rect.width) * 100;
+      slides[current].querySelector(".before-crop").style.width = percent + "%";
+      slides[current].querySelector(".slider-handle").style.left =
+        percent + "%";
+    };
+
+    window.addEventListener("mousemove", move);
+    window.addEventListener("touchmove", move, { passive: true });
   }
-  // ////////////////////// END WebGL slider/////////////
 });
-// ////////////////////// year in footer/////////////
-document.getElementById("current-year").textContent = new Date().getFullYear();
