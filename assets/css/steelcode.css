@@ -2313,7 +2313,6 @@ body.is-preload #footer {
   height: auto;
 }
 
-/* Миниатюрные жемчужные точки */
 .hotspot {
   position: absolute;
   width: 14px;
@@ -2325,7 +2324,6 @@ body.is-preload #footer {
   cursor: pointer;
   padding: 0;
   outline: none;
-  /* Мягкая тень для контраста с кожей + слой для анимации */
   box-shadow:
     0 2px 5px rgba(0, 0, 0, 0.15),
     0 0 0 0 rgba(255, 255, 255, 0.8);
@@ -2335,7 +2333,6 @@ body.is-preload #footer {
     background-color 0.3s ease;
 }
 
-/* Элегантное увеличение при клике/наведении без агрессивных цветов */
 .hotspot:hover,
 .hotspot.active {
   background-color: #ffffff;
