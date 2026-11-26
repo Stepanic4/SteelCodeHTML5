@@ -253,4 +253,26 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("mousemove", move);
     window.addEventListener("touchmove", move, { passive: true });
   }
+
+  // Face Map Logic
+  const hotspots = document.querySelectorAll(".hotspot");
+  const fmPanels = document.querySelectorAll(".fm-panel");
+
+  if (hotspots.length > 0) {
+    hotspots.forEach((spot) => {
+      spot.addEventListener("click", (e) => {
+        e.preventDefault();
+        const zone = spot.getAttribute("data-zone");
+
+        // Сброс активных точек
+        hotspots.forEach((h) => h.classList.remove("active"));
+        spot.classList.add("active");
+
+        // Переключение инфо-панелей
+        fmPanels.forEach((panel) => panel.classList.remove("active"));
+        const activePanel = document.getElementById(`fm-${zone}`);
+        if (activePanel) activePanel.classList.add("active");
+      });
+    });
+  }
 });

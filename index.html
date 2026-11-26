@@ -49,6 +49,7 @@
         <nav>
           <ul>
             <li><a href="#sluzby">Služby</a></li>
+            <li><a href="#mapa">Mapa tváře</a></li>
             <li><a href="#cenik">Ceník</a></li>
             <li><a href="#o-nas">O mně</a></li>
             <li><a href="#galerie">Galerie</a></li>
@@ -77,6 +78,94 @@
             <li>Mezoterapie a biorevitalizace pleti</li>
             <li>Plazmaterapie (PRP lifting)</li>
           </ul>
+        </article>
+
+        <article id="mapa">
+          <div class="close"></div>
+          <h2 class="steel-block">Interaktivní mapa tváře</h2>
+          <p>
+            Klikněte na problematickou zónu a zjistěte, jaké řešení nabízíme.
+          </p>
+
+          <div class="facemap-container">
+            <div class="facemap-visual">
+              <!-- Заглушка, сюда вставишь свое фото лица -->
+              <img
+                src="images/about.jpg"
+                alt="Mapa tváře"
+                class="facemap-img"
+                loading="lazy"
+              />
+
+              <!-- Пульсирующие точки (позиции настроишь в CSS под свою картинку) -->
+              <button
+                class="hotspot"
+                data-zone="forehead"
+                style="top: 25%; left: 50%"
+              ></button>
+              <button
+                class="hotspot"
+                data-zone="eyes"
+                style="top: 40%; left: 70%"
+              ></button>
+              <button
+                class="hotspot"
+                data-zone="nasolabial"
+                style="top: 60%; left: 35%"
+              ></button>
+              <button
+                class="hotspot"
+                data-zone="lips"
+                style="top: 75%; left: 50%"
+              ></button>
+            </div>
+
+            <div class="facemap-content">
+              <div id="fm-default" class="fm-panel active">
+                <h3>Vyberte zónu</h3>
+                <p>
+                  Kliknutím na pulzující body na obličeji zjistíte doporučené
+                  procedury.
+                </p>
+              </div>
+
+              <div id="fm-forehead" class="fm-panel">
+                <h3>Vrásky na čele a mračivka</h3>
+                <p>
+                  Aplikace botulotoxinu uvolní svaly a vyhladí horizontální i
+                  vertikální vrásky. Rychlý zákrok s efektem na několik měsíců.
+                </p>
+                <strong>Od 3 500 Kč</strong>
+              </div>
+
+              <div id="fm-eyes" class="fm-panel">
+                <h3>Vrásky kolem očí (Vějířky)</h3>
+                <p>
+                  Jemná aplikace botulotoxinu nebo mezoterapie pro omlazení a
+                  rozjasnění očního okolí.
+                </p>
+                <strong>Od 3 500 Kč</strong>
+              </div>
+
+              <div id="fm-nasolabial" class="fm-panel">
+                <h3>Nosoretní rýhy</h3>
+                <p>
+                  Výplň kyselinou hyaluronovou zjemní hluboké rýhy od nosu ke
+                  koutkům úst a dodá tváři odpočatý výraz.
+                </p>
+                <strong>Od 6 000 Kč</strong>
+              </div>
+
+              <div id="fm-lips" class="fm-panel">
+                <h3>Modelace a hydratace rtů</h3>
+                <p>
+                  Kyselina hyaluronová pro přirozené zvětšení objemu, zvýraznění
+                  kontur nebo hloubkovou hydrataci.
+                </p>
+                <strong>Od 6 500 Kč</strong>
+              </div>
+            </div>
+          </div>
         </article>
 
         <article id="cenik">
