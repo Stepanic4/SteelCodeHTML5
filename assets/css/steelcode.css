@@ -2315,9 +2315,9 @@ body.is-preload #footer {
 
 .hotspot {
   position: absolute;
-  width: 14px;
-  height: 14px;
-  background-color: #ffffff;
+  width: 10px;
+  height: 10px;
+  background-color: #d2ecfb; /* Нежно-голубой */
   border: none;
   border-radius: 50%;
   transform: translate(-50%, -50%);
@@ -2325,38 +2325,49 @@ body.is-preload #footer {
   padding: 0;
   outline: none;
   box-shadow:
-    0 2px 5px rgba(0, 0, 0, 0.15),
-    0 0 0 0 rgba(255, 255, 255, 0.8);
-  animation: pulse-soft 2s infinite;
+    0 1px 3px rgba(0, 0, 0, 0.15),
+    0 0 0 0 rgba(115, 199, 238, 0.9);
+  animation: pulse-soft-blue 2s infinite;
   transition:
     transform 0.3s ease,
-    background-color 0.3s ease;
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
+/* Невидимый хитбокс для легкого нажатия пальцем (30px зона клика) */
+.hotspot::after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+}
+
+/* Элегантный hover и активное состояние */
 .hotspot:hover,
 .hotspot.active {
-  background-color: #ffffff;
+  background-color: #8cd1f8; /* Чуть насыщеннее при наведении */
   animation: none;
   transform: translate(-50%, -50%) scale(1.4);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Нежная пульсация белым светом */
-@keyframes pulse-soft {
+@keyframes pulse-soft-blue {
   0% {
     box-shadow:
-      0 2px 5px rgba(0, 0, 0, 0.15),
-      0 0 0 0 rgba(255, 255, 255, 0.7);
+      0 1px 3px rgba(0, 0, 0, 0.15),
+      0 0 0 0 rgba(64, 181, 245, 0.95);
   }
   70% {
     box-shadow:
-      0 2px 5px rgba(0, 0, 0, 0.15),
-      0 0 0 12px rgba(255, 255, 255, 0);
+      0 1px 3px rgba(0, 0, 0, 0.15),
+      0 0 0 14px rgba(64, 181, 245, 0);
   }
   100% {
     box-shadow:
-      0 2px 5px rgba(0, 0, 0, 0.15),
-      0 0 0 0 rgba(255, 255, 255, 0);
+      0 1px 3px rgba(0, 0, 0, 0.15),
+      0 0 0 0 rgba(64, 181, 245, 0);
   }
 }
 
